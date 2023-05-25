@@ -4,7 +4,6 @@ author: "Rex Parsons"
 format: 
   revealjs:
     theme: league
-    
 ---
 
 ## The next hour of your life
@@ -39,8 +38,7 @@ format:
 
 ## Who am I? {.smaller}
 
-![](www/who-am-i/2032olympicscandidatecitylogo.png){.absolute right=250}
-
+![](www/who-am-i/2032olympicscandidatecitylogo.png){.absolute right="250"}
 
 ## Who am I? {.smaller}
 
@@ -103,36 +101,39 @@ Previously:
 
 # Who are you?
 
----
+------------------------------------------------------------------------
 
-![](www/mentimeter_qr_code.png){.absolute right=250}
----
+## ![](www/mentimeter_qr_code.png){.absolute right="250"}
 
-<div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe sandbox='allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/app/presentation/alr8yyu8vcuxq5843c5n8yhaprmnyan2/embed' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
+::: {style="position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;"}
+<iframe sandbox="allow-scripts allow-same-origin allow-presentation" allowfullscreen="true" allowtransparency="true" frameborder="0" height="315" src="https://www.mentimeter.com/app/presentation/alr8yyu8vcuxq5843c5n8yhaprmnyan2/embed" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" width="420">
+
+</iframe>
+:::
 
 # What is a clinical Decision Support System?
 
 ## What is a clinical Decision Support System?
 
-![](www/what-is-a-cdss/cdss-diagram.png){.absolute right=500}
+![](www/what-is-a-cdss/cdss-diagram.png){.absolute right="500"}
 
 ## annalise.ai's chest x-ray decision support {.smaller}
 
 ::: columns
 ::: {.column width="43%"}
-- **Assesses chest x-ray for 124 possible outcomes**
-- **Ranks outcomes and communicates risk to user**
-- Highlights areas of image that are influential to risk estimate
+-   **Assesses chest x-ray for 124 possible outcomes**
+-   **Ranks outcomes and communicates risk to user**
+-   Highlights areas of image that are influential to risk estimate
 :::
 
 ::: {.column width="45%"}
-- **clinical prediction model**
-- **reduces/prioritises information**
-- model interpretation for better decision (?)
+-   **clinical prediction model**
+-   **reduces/prioritises information**
+-   model interpretation for better decision (?)
 :::
 :::
-<img src="/www/what-is-a-cdss/annalise-cxr.gif" height="70%" width="70%"/>
 
+<img src="/www/what-is-a-cdss/annalise-cxr.gif" height="70%" width="70%"/>
 
 ## What is a clinical prediction model?
 
@@ -168,8 +169,173 @@ Previously:
 :::
 :::
 
+# THE ENTIRE FIELD OF HEALTH ECONOMICS
+
+## THE ENTIRE FIELD OF HEALTH ECONOMICS
+
+![](www/health-econ/liar.gif)
+
+## What you need to know... {.incremental}
+
+-  Healthcare systems are resource constrained
+-  Health economics concerns how best to allocate resources
+-  Some terms...
+
+---
+
+## Quality-adjusted life years (QALYS)
+
+Generic measure of disease burden that considers quality and duration of life
+
+![](www/health-econ/qaly.png)
+
+## Willingness-to-pay (WTP)
+
+"The maximum price at or below a customer would pay for a product"
+
+AKA
+
+"The price at which a healthcare payer is willing to pay for an additional quality-adjust life year"
+
+![](www/health-econ/shut-up-and-take-my-money.gif)
+
+## Incremental cost-effectiveness ratio (ICER)
+
+$$ICER = \frac{Cost_{A}-Cost_{B}}{QALY_{A}-QALY_{B}}$$
+
+ICER = Cost per additional QALY gained
+
+```r
+if (ICER < WTP) {
+  print("Treatment is cost-effective!")
+}
+```
+
+## Cost-effectiveness
 
 
 
+```{r}
+library(tidyverse)
+
+df_labels <- list(
+  list(-0.5, 25000, "A"),
+  list(0.5, -35000, "B"),
+  
+  list(0.5, 35000, "C"),
+  list(-0.8, -12500, "D"),
+  
+  list(0.8, 12500, "E"),
+  list(-0.5, -35000, "F")
+) |> 
+  data.table::rbindlist() |> 
+  as.data.frame() |> 
+  rename(qaly = 1, cost = 2, label = 3)
+
+p_base <- 
+  ggplot() +
+  scale_x_continuous(limits = c(-1, 1)) +
+  scale_y_continuous(limits = c(-50000, 50000), labels = scales::dollar_format()) +
+  geom_vline(xintercept = 0) +
+  geom_hline(yintercept = 0) +
+  labs(
+    x = "Incremental benefit (QALYs)",
+    y = "Incremental costs ($)\n"
+  ) +
+  theme_bw()
+
+p_wtp_line_only <- p_base + geom_abline(linetype = "dashed", slope = 28033) 
 
 
+f <- function(x) x * 28033
+
+p_wtp <-
+  p_wtp_line_only + 
+  geom_ribbon(stat = 'function', fun = f,
+              mapping = aes(ymin = after_stat(y), ymax = Inf),
+              fill = 'brown', alpha = 0.5) +
+  geom_ribbon(stat = 'function', fun = f,
+              mapping = aes(ymin = after_stat(y), ymax = -Inf),
+              fill = 'lightgreen', alpha = 0.5)
+
+p_labels <- function() {
+  l <- list()
+  p_running <- p_wtp
+  for(i in 1:nrow(df_labels)) {
+    p_running <- 
+      p_running + 
+      geom_text(
+        data = df_labels[i, ],
+        aes(qaly, cost, label = label),
+        size = 10
+      )
+    l <- c(l, list(p_running))
+  }
+  l
+}
+
+p_all <- c(list(p_base, p_wtp_line_only, p_wtp), p_labels())
+```
+
+## Cost-effectiveness plot {transition="fade" transition-speed="fast"}
+
+```{r}
+p_all[[1]]
+```
+
+## Cost-effectiveness plot {transition="fade" transition-speed="fast"}
+
+```{r}
+p_all[[2]]
+```
+
+## Cost-effectiveness plot {transition="fade" transition-speed="fast"}
+
+```{r}
+p_all[[3]]
+```
+
+## Cost-effectiveness plot {transition="fade" transition-speed="fast"}
+
+```{r}
+p_all[[4]]
+```
+
+## Cost-effectiveness plot {transition="fade" transition-speed="fast"}
+
+```{r}
+p_all[[5]]
+```
+
+## Cost-effectiveness plot {transition="fade" transition-speed="fast"}
+
+```{r}
+p_all[[6]]
+```
+
+## Cost-effectiveness plot {transition="fade" transition-speed="fast"}
+
+```{r}
+p_all[[7]]
+```
+
+## Cost-effectiveness plot {transition="fade" transition-speed="fast"}
+
+```{r}
+p_all[[8]]
+```
+
+## Cost-effectiveness plot {transition="fade" transition-speed="fast"}
+
+```{r}
+p_all[[9]]
+```
+
+## (Incremental) Net Monetary Benefit
+
+NMB: Summary of benefit in monetary terms
+
+$$NMB = QALY \times WTP - Cost_{treatment}$$
+INB: Difference in NMB between two strategies
+
+$$INB_{A} = NMB_{A} - NMB_{ref}$$

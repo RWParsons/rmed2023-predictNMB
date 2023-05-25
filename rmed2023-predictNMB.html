@@ -28,6 +28,70 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #f8f8f2;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #f8f8f2; } /* Normal */
+    code span.al { color: #f07178; background-color: #2a0f15; font-weight: bold; } /* Alert */
+    code span.an { color: #d4d0ab; } /* Annotation */
+    code span.at { color: #00e0e0; } /* Attribute */
+    code span.bn { color: #d4d0ab; } /* BaseN */
+    code span.bu { color: #abe338; } /* BuiltIn */
+    code span.cf { color: #ffa07a; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #abe338; } /* Char */
+    code span.cn { color: #ffd700; } /* Constant */
+    code span.co { color: #f8f8f2; font-style: italic; } /* Comment */
+    code span.cv { color: #ffd700; } /* CommentVar */
+    code span.do { color: #f8f8f2; } /* Documentation */
+    code span.dt { color: #ffa07a; } /* DataType */
+    code span.dv { color: #d4d0ab; } /* DecVal */
+    code span.er { color: #f07178; text-decoration: underline; } /* Error */
+    code span.ex { color: #00e0e0; font-weight: bold; } /* Extension */
+    code span.fl { color: #d4d0ab; } /* Float */
+    code span.fu { color: #ffa07a; } /* Function */
+    code span.im { color: #abe338; } /* Import */
+    code span.in { color: #d4d0ab; } /* Information */
+    code span.kw { color: #ffa07a; font-weight: bold; } /* Keyword */
+    code span.op { color: #ffa07a; } /* Operator */
+    code span.ot { color: #00e0e0; } /* Other */
+    code span.pp { color: #dcc6e0; } /* Preprocessor */
+    code span.re { color: #00e0e0; background-color: #f8f8f2; } /* RegionMarker */
+    code span.sc { color: #abe338; } /* SpecialChar */
+    code span.ss { color: #abe338; } /* SpecialString */
+    code span.st { color: #abe338; } /* String */
+    code span.va { color: #00e0e0; } /* Variable */
+    code span.vs { color: #abe338; } /* VerbatimString */
+    code span.wa { color: #dcc6e0; } /* Warning */
   </style>
   <link rel="stylesheet" href="rmed2023-predictNMB_files/libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="rmed2023-predictNMB_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -421,12 +485,8 @@ Rex Parsons
 <h1>Who are you?</h1>
 
 </section>
-<section class="slide level2">
-
-<p><img data-src="www/mentimeter_qr_code.png" class="absolute" style="right: 250px; "></p>
-</section>
-<section class="slide level2">
-
+<section id="section" class="slide level2">
+<h2><img data-src="www/mentimeter_qr_code.png" class="absolute" style="right: 250px; "></h2>
 <div style="position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;">
 <iframe sandbox="allow-scripts allow-same-origin allow-presentation" allowfullscreen="true" allowtransparency="true" frameborder="0" height="315" src="https://www.mentimeter.com/app/presentation/alr8yyu8vcuxq5843c5n8yhaprmnyan2/embed" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" width="420">
 </iframe>
@@ -486,6 +546,91 @@ Rex Parsons
 <p><img data-src="www/what-is-a-cdss/prognostic-crystal-ball-mi.jpg"></p>
 </div>
 </div>
+</section></section>
+<section>
+<section id="the-entire-field-of-health-economics" class="title-slide slide level1 center">
+<h1>THE ENTIRE FIELD OF HEALTH ECONOMICS</h1>
+
+</section>
+<section id="the-entire-field-of-health-economics-1" class="slide level2">
+<h2>THE ENTIRE FIELD OF HEALTH ECONOMICS</h2>
+
+<img data-src="www/health-econ/liar.gif" class="r-stretch"></section>
+<section id="what-you-need-to-know" class="slide level2 incremental">
+<h2>What you need to know…</h2>
+<ul>
+<li>Healthcare systems are resource constrained</li>
+<li>Health economics concerns how best to allocate resources</li>
+<li>Some terms…</li>
+</ul>
+</section>
+<section id="quality-adjusted-life-years-qalys" class="slide level2">
+<h2>Quality-adjusted life years (QALYS)</h2>
+<p>Generic measure of disease burden that considers quality and duration of life</p>
+
+<img data-src="www/health-econ/qaly.png" class="r-stretch"></section>
+<section id="willingness-to-pay-wtp" class="slide level2">
+<h2>Willingness-to-pay (WTP)</h2>
+<p>“The maximum price at or below a customer would pay for a product”</p>
+<p>AKA</p>
+<p>“The price at which a healthcare payer is willing to pay for an additional quality-adjust life year”</p>
+
+<img data-src="www/health-econ/shut-up-and-take-my-money.gif" class="r-stretch"></section>
+<section id="incremental-cost-effectiveness-ratio-icer" class="slide level2">
+<h2>Incremental cost-effectiveness ratio (ICER)</h2>
+<p><span class="math display">\[ICER = \frac{Cost_{A}-Cost_{B}}{QALY_{A}-QALY_{B}}\]</span></p>
+<p>ICER = Cost per additional QALY gained</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="cf">if</span> (ICER <span class="sc">&lt;</span> WTP) {</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="fu">print</span>(<span class="st">"Treatment is cost-effective!"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="cost-effectiveness" class="slide level2">
+<h2>Cost-effectiveness</h2>
+<div class="cell">
+
+</div>
+</section>
+<section id="cost-effectiveness-plot" class="slide level2" data-transition="fade" data-transition-speed="fast">
+<h2>Cost-effectiveness plot</h2>
+
+<img data-src="rmed2023-predictNMB_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"></section>
+<section id="cost-effectiveness-plot-1" class="slide level2" data-transition="fade" data-transition-speed="fast">
+<h2>Cost-effectiveness plot</h2>
+
+<img data-src="rmed2023-predictNMB_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section>
+<section id="cost-effectiveness-plot-2" class="slide level2" data-transition="fade" data-transition-speed="fast">
+<h2>Cost-effectiveness plot</h2>
+
+<img data-src="rmed2023-predictNMB_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section>
+<section id="cost-effectiveness-plot-3" class="slide level2" data-transition="fade" data-transition-speed="fast">
+<h2>Cost-effectiveness plot</h2>
+
+<img data-src="rmed2023-predictNMB_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" class="r-stretch"></section>
+<section id="cost-effectiveness-plot-4" class="slide level2" data-transition="fade" data-transition-speed="fast">
+<h2>Cost-effectiveness plot</h2>
+
+<img data-src="rmed2023-predictNMB_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section>
+<section id="cost-effectiveness-plot-5" class="slide level2" data-transition="fade" data-transition-speed="fast">
+<h2>Cost-effectiveness plot</h2>
+
+<img data-src="rmed2023-predictNMB_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<section id="cost-effectiveness-plot-6" class="slide level2" data-transition="fade" data-transition-speed="fast">
+<h2>Cost-effectiveness plot</h2>
+
+<img data-src="rmed2023-predictNMB_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
+<section id="cost-effectiveness-plot-7" class="slide level2" data-transition="fade" data-transition-speed="fast">
+<h2>Cost-effectiveness plot</h2>
+
+<img data-src="rmed2023-predictNMB_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
+<section id="cost-effectiveness-plot-8" class="slide level2" data-transition="fade" data-transition-speed="fast">
+<h2>Cost-effectiveness plot</h2>
+
+<img data-src="rmed2023-predictNMB_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section>
+<section id="incremental-net-monetary-benefit" class="slide level2">
+<h2>(Incremental) Net Monetary Benefit</h2>
+<p>NMB: Summary of benefit in monetary terms</p>
+<p><span class="math display">\[NMB = QALY \times WTP - Cost_{treatment}\]</span> INB: Difference in NMB between two strategies</p>
+<p><span class="math display">\[INB_{A} = NMB_{A} - NMB_{ref}\]</span></p>
 <div class="footer footer-default">
 
 </div>
@@ -701,6 +846,44 @@ Rex Parsons
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
