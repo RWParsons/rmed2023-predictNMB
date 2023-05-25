@@ -116,4 +116,60 @@ Previously:
 
 ![](www/what-is-a-cdss/cdss-diagram.png){.absolute right=500}
 
+## annalise.ai's chest x-ray decision support {.smaller}
+
+::: columns
+::: {.column width="43%"}
+- **Assesses chest x-ray for 124 possible outcomes**
+- **Ranks outcomes and communicates risk to user**
+- Highlights areas of image that are influential to risk estimate
+:::
+
+::: {.column width="45%"}
+- **clinical prediction model**
+- **reduces/prioritises information**
+- model interpretation for better decision (?)
+:::
+:::
+<img src="/www/what-is-a-cdss/annalise-cxr.gif" height="70%" width="70%"/>
+
+
+## What is a clinical prediction model?
+
+#### Diagnostic
+
+![](www/what-is-a-cdss/diagnostic-test-covid.png)
+
+## What is a clinical prediction model?
+
+#### Prognostic {.incremental}
+
+::: columns
+::: {.column width="50%"}
+![](www/what-is-a-cdss/prognostic-crystal-ball.jpg)
+:::
+
+::: {.column width="50%"}
+<!-- ![](www/what-is-a-cdss/prognostic-crystal-ball-mi.jpg) -->
+:::
+:::
+
+## What is a clinical prediction model?
+
+#### Prognostic {.incremental}
+
+::: columns
+::: {.column width="50%"}
+![](www/what-is-a-cdss/prognostic-crystal-ball.jpg)
+:::
+
+::: {.column width="50%"}
+![](www/what-is-a-cdss/prognostic-crystal-ball-mi.jpg)
+:::
+:::
+
+
+
+
+
 
