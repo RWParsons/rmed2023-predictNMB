@@ -19,32 +19,32 @@ format:
 
 ## Who am I? {.smaller}
 
-<img src="/www/perth-map.png" height="80%" width="80%"/>
+<img src="/www/who-am-i/perth-map.png" height="80%" width="80%"/>
 
 ## Who am I? {.smaller}
 
 ::: columns
 ::: {.column width="50%"}
-<img src="/www/quokka.jpg" height="100%" width="100%"/>
+<img src="/www/who-am-i/quokka.jpg" height="100%" width="100%"/>
 :::
 
 ::: {.column width="50%"}
-<img src="/www/wa-sunset.jpg" height="100%" width="100%"/>
+<img src="/www/who-am-i/wa-sunset.jpg" height="100%" width="100%"/>
 :::
 :::
 
 ## Who am I? {.smaller}
 
-<img src="/www/qut-map.png" height="80%" width="80%"/>
+<img src="/www/who-am-i/qut-map.png" height="80%" width="80%"/>
 
 ## Who am I? {.smaller}
 
-![](www/2032olympicscandidatecitylogo.png){.absolute right=250}
+![](www/who-am-i/2032olympicscandidatecitylogo.png){.absolute right=250}
 
 
 ## Who am I? {.smaller}
 
-<img src="/www/beach.jpg" height="45%" width="45%"/> <img src="/www/bris-mountain.jpg" height="45%" width="45%"/> <img src="/www/track-night.jpg" height="45%" width="45%"/> <img src="/www/red-belly-black.jpg" height="45%" width="45%"/>
+<img src="/www/who-am-i/beach.jpg" height="45%" width="45%"/> <img src="/www/who-am-i/bris-mountain.jpg" height="45%" width="45%"/> <img src="/www/who-am-i/track-night.jpg" height="45%" width="45%"/> <img src="/www/who-am-i/red-belly-black.jpg" height="45%" width="45%"/>
 
 ## Who am I? {.smaller}
 
@@ -56,7 +56,7 @@ Currently:
 ::: {.column width="80%"}
 PhD Candidate and Senior Research Assistant at AusHSI (QUT)
 
-<img src="/www/aushsi-logo.png" height="50%" width="50%"/> <img src="/www/dhcrc-logo.png" height="15%" width="15%"/>
+<img src="/www/who-am-i/aushsi-logo.png" height="50%" width="50%"/> <img src="/www/who-am-i/dhcrc-logo.png" height="15%" width="15%"/>
 :::
 :::
 
@@ -68,16 +68,16 @@ Previously:
 ::: {.column width="55%"}
 **Work**
 
--   Data Analyst - IVF (City Fertility)<img src="/www/r-logo.png" height="8%" width="8%"/>
--   Research Assistant - Radiology (IMED)<img src="/www/r-logo.png" height="8%" width="8%"/>
+-   Data Analyst - IVF (City Fertility)<img src="/www/who-am-i/r-logo.png" height="8%" width="8%"/>
+-   Research Assistant - Radiology (IMED)<img src="/www/who-am-i/r-logo.png" height="8%" width="8%"/>
 -   Scientist - Medical Diagnostics (Ellume)
 
 **School**
 
 -   BSc Physiotherapy (DNF)
 -   BSc Biomedical Science
--   Honours (Neuroscience) <img src="/www/r-logo.png" height="8%" width="8%"/>
--   Master of Medical Statistics <img src="/www/r-logo.png" height="8%" width="8%"/>
+-   Honours (Neuroscience) <img src="/www/who-am-i/r-logo.png" height="8%" width="8%"/>
+-   Master of Medical Statistics <img src="/www/who-am-i/r-logo.png" height="8%" width="8%"/>
 :::
 
 ::: {.column width="25%"}
@@ -103,8 +103,17 @@ Previously:
 
 # Who are you?
 
-## https://www.menti.com/alzhap71ex5b
+---
+
 ![](www/mentimeter_qr_code.png){.absolute right=250}
+---
+
+<div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe sandbox='allow-scripts allow-same-origin allow-presentation' allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/app/presentation/alr8yyu8vcuxq5843c5n8yhaprmnyan2/embed' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
+
+# What is a clinical Decision Support System?
+
+## What is a clinical Decision Support System?
+
+![](www/what-is-a-cdss/cdss-diagram.png){.absolute right=500}
 
 
-# test
