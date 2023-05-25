@@ -339,3 +339,17 @@ $$NMB = QALY \times WTP - Cost_{treatment}$$
 INB: Difference in NMB between two strategies
 
 $$INB_{A} = NMB_{A} - NMB_{ref}$$
+
+# `{predictNMB}`
+
+
+## `{predictNMB}` <a href='https://docs.ropensci.org/predictNMB/'><img src='www/predictNMB/logo.png' align="right" height="170" /></a>
+
+What is the expected health economic benefit of using a given (hypothetical) CDSS?
+
+[docs.ropensci.org/predictNMB/](https://docs.ropensci.org/predictNMB/)
+
+
+```r
+install.packages("predictNMB")
+```
