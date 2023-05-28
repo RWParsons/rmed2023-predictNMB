@@ -179,7 +179,7 @@ Previously:
 ## What you need to know... {.incremental}
 
 -   Healthcare systems are resource constrained
--   Health economics concerns how best to allocate resources
+-   Health economics concerns how best to allocate resources to areas of greatest benefit
 -   Some terms...
 
 ------------------------------------------------------------------------
@@ -196,13 +196,13 @@ Generic measure of disease burden that considers quality and duration of life
 
 AKA
 
-"The price at which a healthcare payer is willing to pay for an additional quality-adjust life year"
+"The price at which a healthcare payer is willing to pay for an additional quality-adjusted life year"
 
 ![](www/health-econ/shut-up-and-take-my-money.gif)
 
 ## Incremental cost-effectiveness ratio (ICER)
 
-$$ICER = \frac{Cost_{A}-Cost_{B}}{QALY_{A}-QALY_{B}}$$
+$$ICER = \frac{Cost_{treatment}-Cost_{ref}}{QALY_{treatment}-QALY_{ref}}$$
 
 ICER = Cost per additional QALY gained
 
@@ -336,7 +336,7 @@ NMB: Summary of benefit in monetary terms
 
 $$NMB = QALY \times WTP - Cost_{treatment}$$ INB: Difference in NMB between two strategies
 
-$$INB_{A} = NMB_{A} - NMB_{ref}$$
+$$INB_{treatment} = NMB_{treatment} - NMB_{ref}$$
 
 # `{predictNMB}`
 

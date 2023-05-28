@@ -4,23 +4,43 @@ author: "Rex Parsons"
 format: gfm
 ---
 
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
 ```{r}
-1 + 1
+library(predictNMB)
 ```
 
-You can add options to executable code like this
+### Example problem - inpatient falls
+
+-   Falls leads to about 3 lost QALYs
+-   Fall prevention education: costs \$150 per patient and reduces probability of fall by 30%
+-   WTP for us is \$28033 AUD
+
+Current practice: Everyone gets the fall prevention intervention (treat-all approach).
+
+We have a prediction model which has an AUC of about 0.8 and we want to know whether it'll be worthwhile implementing it within a CDSS to reduce healthcare costs (giving people that are unlikely to fall the intervention at \$150 a pop!)
+
+We are currently in a geriatric ward where the fall rate is about 0.1 (1 in 10 admitted patients have a fall) but are also interested in implementing the same model in the acute care ward (fall rate = 0.03). Would we expect to make the same conclusion?
+
+We think we can improve the performance of the model up to 0.95 with some extra effort by the models - would this change our conclusion?
+
+## Making our samplers
 
 ```{r}
-#| echo: false
-2 * 2
+
+training_sampler <- get_nmb_sampler()
+
+validation_sampler <- get_nmb_sampler()
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+## Running our simulation (primary use-case)
+
+```{r}
+primary_sim <- do_nmb_sim()
+```
+
+### Interpreting our results
+
+```{r}
+autoplot(primary_sim)
+
+ce_plot(primary_sim)
+```
