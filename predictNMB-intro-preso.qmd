@@ -251,8 +251,8 @@ df_labels <- list(
 
 p_base <-
   ggplot() +
-  scale_x_continuous(limits = c(-1, 1)) +
-  scale_y_continuous(limits = c(-50000, 50000), labels = scales::dollar_format()) +
+  scale_x_continuous(limits = c(-1, 1), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(-50000, 50000), labels = scales::dollar_format(), expand = c(0, 0)) +
   geom_vline(xintercept = 0) +
   geom_hline(yintercept = 0) +
   labs(
@@ -261,13 +261,11 @@ p_base <-
   ) +
   theme_bw()
 
-p_wtp_line_only <- p_base + geom_abline(linetype = "dashed", slope = 28033)
-
-
 f <- function(x) x * 28033
 
 p_wtp <-
-  p_wtp_line_only +
+  p_base + 
+  geom_abline(linetype = "dashed", slope = 28033) +
   geom_ribbon(stat = 'function', fun = f,
               mapping = aes(ymin = after_stat(y), ymax = Inf),
               fill = 'brown', alpha = 0.5) +
@@ -275,10 +273,40 @@ p_wtp <-
               mapping = aes(ymin = after_stat(y), ymax = -Inf),
               fill = 'lightgreen', alpha = 0.5)
 
-p_labels <- function() {
+p_clear_picks <-
+  p_base +
+  annotate(
+    "rect",
+    xmin = -Inf, xmax = 0,
+    ymin = Inf, ymax = 0,
+    fill = "brown", 
+    alpha = 0.5
+  ) +
+  annotate(
+    "rect", 
+    xmin = 0, xmax = Inf, 
+    ymin = -Inf, ymax = 0,
+    fill = "lightgreen", 
+    alpha = 0.5
+  ) +
+  geom_text(
+    data = df_labels[1:2, ],
+    aes(qaly, cost, label = label),
+    size = 10
+  )
+
+p_clear_picks_with_wtp <-
+  p_wtp +
+  geom_text(
+    data = df_labels[1:2, ],
+    aes(qaly, cost, label = label),
+    size = 10
+  ) 
+
+get_p_labels <- function(start = 1, p_start = p_wtp) {
   l <- list()
-  p_running <- p_wtp
-  for(i in 1:nrow(df_labels)) {
+  p_running <- p_start
+  for(i in start:nrow(df_labels)) {
     p_running <-
       p_running +
       geom_text(
@@ -291,7 +319,10 @@ p_labels <- function() {
   l
 }
 
-p_all <- c(list(p_base, p_wtp_line_only, p_wtp), p_labels())
+p_all <- c(
+  list(p_base, p_clear_picks, p_clear_picks_with_wtp),
+  get_p_labels(start = 3, p_start = p_clear_picks_with_wtp)
+)
 ```
 
 ## Cost-effectiveness plot {transition="fade" transition-speed="fast"}
@@ -334,18 +365,6 @@ p_all[[6]]
 
 ```{r}
 p_all[[7]]
-```
-
-## Cost-effectiveness plot {transition="fade" transition-speed="fast"}
-
-```{r}
-p_all[[8]]
-```
-
-## Cost-effectiveness plot {transition="fade" transition-speed="fast"}
-
-```{r}
-p_all[[9]]
 ```
 
 ## (Incremental) Net Monetary Benefit
