@@ -19,84 +19,116 @@ format:
 
 ## Who am I? {.smaller}
 
-<img src="/www/who-am-i/perth-map.png" height="80%" width="80%"/>
+![](www/who-am-i/perth-map.png){.absolute width=900 height=600}
 
 ## Who am I? {.smaller}
 
 ::: columns
 ::: {.column width="50%"}
-<img src="/www/who-am-i/quokka.jpg" height="100%" width="100%"/>
+![](www/who-am-i/quokka.jpg){.absolute width=450 height=350}
 :::
-
 ::: {.column width="50%"}
-<img src="/www/who-am-i/wa-sunset.jpg" height="100%" width="100%"/>
+![](www/who-am-i/wa-sunset.jpg){.absolute width=464 height=350}
 :::
 :::
 
 ## Who am I? {.smaller}
-
-<img src="/www/who-am-i/qut-map.png" height="80%" width="80%"/>
-
-## Who am I? {.smaller}
-
-![](www/who-am-i/2032olympicscandidatecitylogo.png){.absolute right="250"}
+![](www/who-am-i/qut-map.png){.absolute width=900 height=600}
 
 ## Who am I? {.smaller}
 
-<img src="/www/who-am-i/beach.jpg" height="45%" width="45%"/> <img src="/www/who-am-i/bris-mountain.jpg" height="45%" width="45%"/> <img src="/www/who-am-i/track-night.jpg" height="45%" width="45%"/> <img src="/www/who-am-i/red-belly-black.jpg" height="45%" width="45%"/>
+![](www/who-am-i/2032olympicscandidatecitylogo.png){.absolute right=250 height=600 width=600}
+
+## Who am I? {.smaller}
+
+
+![](www/who-am-i/beach.jpg){.absolute left=0 height=300 width=500} ![](www/who-am-i/bris-mountain.jpg){.absolute right=0 height=300 width=500}
+![](www/who-am-i/track-night.jpg){.absolute bottom=0 left=0 height=300 width=500}
+![](www/who-am-i/red-belly-black.jpg){.absolute bottom=0 right=0 height=300 width=500}
 
 ## Who am I? {.smaller}
 
 ::: columns
-::: {.column width="20%"}
+::: {.column width="15%"}
 Currently:
 :::
 
-::: {.column width="80%"}
+::: {.column width="85%"}
 PhD Candidate and Senior Research Assistant at AusHSI (QUT)
-
-<img src="/www/who-am-i/aushsi-logo.png" height="50%" width="50%"/> <img src="/www/who-am-i/dhcrc-logo.png" height="15%" width="15%"/>
+<br><br>
+![](www/who-am-i/aushsi-logo.png){.absolute left=450 top=0 height=85}
+![](www/who-am-i/dhcrc-logo.png){.absolute right=120 top=0 height=85}
 :::
 :::
 
 ::: columns
-::: {.column width="20%"}
+::: {.column width="15%"}
 Previously:
 :::
 
-::: {.column width="55%"}
+::: {.column width="85%"}
 **Work**
+![](www/who-am-i/r-logo.png){.absolute height=25 right=50 top=255}
+![](www/who-am-i/r-logo.png){.absolute height=25 right=50 top=320}
 
--   Data Analyst - IVF (City Fertility)<img src="/www/who-am-i/r-logo.png" height="8%" width="8%"/>
--   Research Assistant - Radiology (IMED)<img src="/www/who-am-i/r-logo.png" height="8%" width="8%"/>
--   Scientist - Medical Diagnostics (Ellume)
-
-**School**
-
--   BSc Physiotherapy (DNF)
--   BSc Biomedical Science
--   Honours (Neuroscience) <img src="/www/who-am-i/r-logo.png" height="8%" width="8%"/>
--   Master of Medical Statistics <img src="/www/who-am-i/r-logo.png" height="8%" width="8%"/>
+::: columns
+::: {.column width="70%"}
+- Data Analyst - IVF (City Fertility) 
+:::
+::: {.column width="20%"}
+2019-2020
+:::
 :::
 
-::: {.column width="25%"}
-<br>
-
-2019-2020
-
+::: columns
+::: {.column width="70%"}
+- Research Assistant - Radiology (IMED) 
+:::
+::: {.column width="20%"}
 2018-2019
+:::
+:::
 
+::: columns
+::: {.column width="70%"}
+- Scientist - Medical Diagnostics (Ellume)
+:::
+::: {.column width="20%"}
 2016-2018
+:::
+:::
 
-<br> <br>
+**School**
+![](www/who-am-i/sas-logo.png){.absolute height=25 right=25 top=585}
+![](www/who-am-i/r-logo.png){.absolute height=25 right=50 top=515}
 
-2012-2014
-
-2015-2016
-
-2017
-
+::: columns
+::: {.column width="70%"}
+- Master of Medical Statistics
+:::
+::: {.column width="20%"}
 2019-2020
+:::
+:::
+
+::: columns
+::: {.column width="70%"}
+- BSc Biomed + Honours (Neuroscience)
+:::
+::: {.column width="20%"}
+2015-2017
+:::
+:::
+
+::: columns
+::: {.column width="70%"}
+- BSc Phys(io/ical)therapy
+:::
+::: {.column width="20%"}
+2012-2014
+:::
+:::
+
 :::
 :::
 
@@ -116,7 +148,7 @@ Previously:
 
 ## What is a clinical Decision Support System?
 
-![](www/what-is-a-cdss/cdss-diagram.png){.absolute right="500"}
+![](www/what-is-a-cdss/cdss-diagram.png){.absolute left=350 height=500}
 
 ## annalise.ai's chest x-ray decision support {.smaller}
 
@@ -134,7 +166,9 @@ Previously:
 :::
 :::
 
-<img src="/www/what-is-a-cdss/annalise-cxr.gif" height="70%" width="70%"/>
+![](www/what-is-a-cdss/annalise-cxr.gif){.absolute right=330 bottom=0 height=300}
+
+<!-- <img src="/www/what-is-a-cdss/annalise-cxr.gif" height="70%" width="70%"/> -->
 
 ## What is a clinical prediction model?
 
@@ -146,29 +180,13 @@ Previously:
 
 #### Prognostic {.incremental}
 
-::: columns
-::: {.column width="50%"}
 ![](www/what-is-a-cdss/prognostic-crystal-ball.jpg)
-:::
-
-::: {.column width="50%"}
-<!-- ![](www/what-is-a-cdss/prognostic-crystal-ball-mi.jpg) -->
-:::
-:::
 
 ## What is a clinical prediction model?
 
 #### Prognostic {.incremental}
 
-::: columns
-::: {.column width="50%"}
-![](www/what-is-a-cdss/prognostic-crystal-ball.jpg)
-:::
-
-::: {.column width="50%"}
 ![](www/what-is-a-cdss/prognostic-crystal-ball-mi.jpg)
-:::
-:::
 
 # THE ENTIRE FIELD OF HEALTH ECONOMICS
 
@@ -220,18 +238,18 @@ library(tidyverse)
 df_labels <- list(
   list(-0.5, 25000, "A"),
   list(0.5, -35000, "B"),
-  
+
   list(0.5, 35000, "C"),
   list(-0.8, -12500, "D"),
-  
+
   list(0.8, 12500, "E"),
   list(-0.5, -35000, "F")
-) |> 
-  data.table::rbindlist() |> 
-  as.data.frame() |> 
+) |>
+  data.table::rbindlist() |>
+  as.data.frame() |>
   rename(qaly = 1, cost = 2, label = 3)
 
-p_base <- 
+p_base <-
   ggplot() +
   scale_x_continuous(limits = c(-1, 1)) +
   scale_y_continuous(limits = c(-50000, 50000), labels = scales::dollar_format()) +
@@ -243,13 +261,13 @@ p_base <-
   ) +
   theme_bw()
 
-p_wtp_line_only <- p_base + geom_abline(linetype = "dashed", slope = 28033) 
+p_wtp_line_only <- p_base + geom_abline(linetype = "dashed", slope = 28033)
 
 
 f <- function(x) x * 28033
 
 p_wtp <-
-  p_wtp_line_only + 
+  p_wtp_line_only +
   geom_ribbon(stat = 'function', fun = f,
               mapping = aes(ymin = after_stat(y), ymax = Inf),
               fill = 'brown', alpha = 0.5) +
@@ -261,8 +279,8 @@ p_labels <- function() {
   l <- list()
   p_running <- p_wtp
   for(i in 1:nrow(df_labels)) {
-    p_running <- 
-      p_running + 
+    p_running <-
+      p_running +
       geom_text(
         data = df_labels[i, ],
         aes(qaly, cost, label = label),
