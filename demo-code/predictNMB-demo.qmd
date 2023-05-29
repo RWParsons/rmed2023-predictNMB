@@ -12,7 +12,7 @@ set.seed(42)
 
 ## Example problem and inputs required - inpatient falls
 
--   Falls leads to about 0.04 lost Quality-Adjusted Life Years (QALYs) [@latimer13] and has an approximate beta distribution of: $$\mathrm{B}(\alpha = 3.07, \beta = 70.01) \times 2$$\
+-   Falls leads to about 0.04 lost Quality-Adjusted Life Years (QALYs) [@latimer13] and has an approximate beta distribution of: $$\mathrm{B}(\alpha = 2.95, \beta = 32.25)$$\
 
 -   There are also additional healthcare costs of about \$6669 [@morello2015extra] and follows an approximate gamma distribution of: $$\Gamma (\alpha = 22.05, \beta = 0.0033) $$
 
@@ -42,7 +42,7 @@ We will be using different distributions to sample different inputs for our simu
 ```{r, message=FALSE}
 library(ggplot2)
 
-data.frame(QALYs_lost = rbeta(10000, shape1 = 3.07, shape2 = 70.01)) |>
+data.frame(QALYs_lost = rbeta(10000, shape1 = 2.95, shape2 = 32.25)) |>
   ggplot(aes(x = QALYs_lost)) + 
   geom_histogram()
 

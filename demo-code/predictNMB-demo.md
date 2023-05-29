@@ -5,7 +5,7 @@ Rex Parsons
 
 - Falls leads to about 0.04 lost Quality-Adjusted Life Years (QALYs)
   (Latimer et al. 2013) and has an approximate beta distribution of:
-  $$\mathrm{B}(\alpha = 3.07, \beta = 70.01) \times 2$$  
+  $$\mathrm{B}(\alpha = 2.95, \beta = 32.25)$$  
 
 - There are also additional healthcare costs of about \$6669 (Morello et
   al. 2015) and follows an approximate gamma distribution of:
@@ -56,7 +56,7 @@ associated with a fall:
 ``` r
 library(ggplot2)
 
-data.frame(QALYs_lost = rbeta(10000, shape1 = 3.07, shape2 = 70.01)) |>
+data.frame(QALYs_lost = rbeta(10000, shape1 = 2.95, shape2 = 32.25)) |>
   ggplot(aes(x = QALYs_lost)) + 
   geom_histogram()
 ```
