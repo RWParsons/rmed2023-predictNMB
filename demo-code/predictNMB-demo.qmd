@@ -5,32 +5,55 @@ format: gfm
 bibliography: references.bib
 ---
 
+```{r, echo=F}
+set.seed(42)
+```
+
+
 ## Example problem and inputs required - inpatient falls
 
--   Falls leads to about 0.04 lost Quality-Adjusted Life Years (QALYs) [@latimer13] and has an approximate beta distribution of: $$\mathrm{B}(\alpha = 3.07, \beta = 70.01) \times 2$$  
-- There are also additional healthcare costs of about \$6669 [@morello2015extra] and follows an approximate gamma distribution of: $$\Gamma (\alpha = 22.05, \beta = 0.0033) $$
+-   Falls leads to about 0.04 lost Quality-Adjusted Life Years (QALYs) [@latimer13] and has an approximate beta distribution of: $$\mathrm{B}(\alpha = 3.07, \beta = 70.01) \times 2$$\
+
+-   There are also additional healthcare costs of about \$6669 [@morello2015extra] and follows an approximate gamma distribution of: $$\Gamma (\alpha = 22.05, \beta = 0.0033) $$
+
 -   Fall prevention education...
-  
-    - has a fixed, known cost of \$77.3 per patient [@hill2015fall]
-    - reduces probability of fall by 45% [@haines2011patient] - the log hazard ratio follows an approximate normal distribution of: $$\mathcal{N}(\mu = -0.844, \sigma = 0.304) $$
-  
+
+    -   has a fixed, known cost of \$77.3 per patient [@hill2015fall]
+    -   reduces probability of fall by 45% [@haines2011patient] - the log hazard ratio follows an approximate normal distribution of: $$\mathcal{N}(\mu = -0.844, \sigma = 0.304) $$
+
 -   The willingness-to-pay (WTP) for us is \$28033 AUD
 
-- Current practice: Everyone gets the fall prevention intervention (treat-all approach).
+-   Current practice: Everyone gets the fall prevention intervention (treat-all approach).
 
 Calculations and code for using details in paper cited papers above is described in [@parsons2023cutpoints].
 
 ## Objectives/Questions
 
-- We have a prediction model which has an AUC of about 0.8 and we want to know whether it'll be worthwhile implementing it within a CDSS to reduce healthcare costs (giving people that are unlikely to fall the intervention at \$77.3 a pop!)
+-   We have a prediction model which has an AUC of about 0.8 and we want to know whether it'll be worthwhile implementing it within a CDSS to reduce healthcare costs (giving people that are unlikely to fall the intervention at \$77.3 a pop!)
 
-- We are currently in a geriatric ward where the fall rate is about 0.1 (1 in 10 admitted patients have a fall) but are also interested in implementing the same model in the acute care ward (fall rate = 0.03). Would we expect to make the same conclusion?
+-   We are currently in a geriatric ward where the fall rate is about 0.1 (1 in 10 admitted patients have a fall) but are also interested in implementing the same model in the acute care ward (fall rate = 0.03). Would we expect to make the same conclusion?
 
-- We think we can improve the performance of the model up to 0.95 with some extra effort by the models - would this change our conclusion?
-
+-   We think we can improve the performance of the model up to 0.95 with some extra effort by the models - would this change our conclusion?
 
 ## pre-`{predictNMB}` primer on the distributions we will be using.
 
+We will be using different distributions to sample different inputs for our simulation. A gamma distribution is often appropriate when sampling $ and a beta distribution is often best when sampling QALYs due to the shape and limits being sensible (the cost of treatment is unlikely be to be negative and QALYs are bounded to be between 0 and 1, similar to a probability of an event). We can sample from these distributions using R code with the `rgamma()` and `rbeta()` functions - for example, here are the distributions above for the healthcare costs and the QALYs associated with a fall:
+
+```{r, message=FALSE}
+library(ggplot2)
+
+data.frame(QALYs_lost = rbeta(10000, shape1 = 3.07, shape2 = 70.01)) |>
+  ggplot(aes(x = QALYs_lost)) + 
+  geom_histogram()
+
+data.frame(fall_costs = rgamma(10000, shape = 22.05, rate = 0.0033)) |>
+  ggplot(aes(x = fall_costs)) + 
+  geom_histogram()
+```
+
+We will be using these sampling functions within our NMB sampling functions!
+
+![](https://media1.giphy.com/media/7pHTiZYbAoq40/giphy.gif)
 
 ## `{predictNMB}`
 
@@ -60,6 +83,5 @@ autoplot(primary_sim)
 
 ce_plot(primary_sim)
 ```
-
 
 # References

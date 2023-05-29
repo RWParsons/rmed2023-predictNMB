@@ -43,6 +43,39 @@ described in (Parsons et al. 2023).
 
 ## pre-`{predictNMB}` primer on the distributions we will be using.
 
+We will be using different distributions to sample different inputs for
+our simulation. A gamma distribution is often appropriate when sampling
+\$ and a beta distribution is often best when sampling QALYs due to the
+shape and limits being sensible (the cost of treatment is unlikely be to
+be negative and QALYs are bounded to be between 0 and 1, similar to a
+probability of an event). We can sample from these distributions using R
+code with the `rgamma()` and `rbeta()` functions - for example, here are
+the distributions above for the healthcare costs and the QALYs
+associated with a fall:
+
+``` r
+library(ggplot2)
+
+data.frame(QALYs_lost = rbeta(10000, shape1 = 3.07, shape2 = 70.01)) |>
+  ggplot(aes(x = QALYs_lost)) + 
+  geom_histogram()
+```
+
+![](predictNMB-demo_files/figure-commonmark/unnamed-chunk-2-1.png)
+
+``` r
+data.frame(fall_costs = rgamma(10000, shape = 22.05, rate = 0.0033)) |>
+  ggplot(aes(x = fall_costs)) + 
+  geom_histogram()
+```
+
+![](predictNMB-demo_files/figure-commonmark/unnamed-chunk-2-2.png)
+
+We will be using these sampling functions within our NMB sampling
+functions!
+
+![](https://media1.giphy.com/media/7pHTiZYbAoq40/giphy.gif)
+
 ## `{predictNMB}`
 
 ``` r
