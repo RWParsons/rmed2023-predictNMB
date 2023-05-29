@@ -2,29 +2,45 @@
 title: "predictNMB-demo"
 author: "Rex Parsons"
 format: gfm
+bibliography: references.bib
 ---
+
+## Example problem and inputs required - inpatient falls
+
+-   Falls leads to about 0.04 lost Quality-Adjusted Life Years (QALYs) [@latimer13] and has an approximate beta distribution of: $$\mathrm{B}(\alpha = 3.07, \beta = 70.01) \times 2$$  
+- There are also additional healthcare costs of about \$6669 [@morello2015extra] and follows an approximate gamma distribution of: $$\Gamma (\alpha = 22.05, \beta = 0.0033) $$
+-   Fall prevention education...
+  
+    - has a fixed, known cost of \$77.3 per patient [@hill2015fall]
+    - reduces probability of fall by 45% [@haines2011patient] - the log hazard ratio follows an approximate normal distribution of: $$\mathcal{N}(\mu = -0.844, \sigma = 0.304) $$
+  
+-   The willingness-to-pay (WTP) for us is \$28033 AUD
+
+- Current practice: Everyone gets the fall prevention intervention (treat-all approach).
+
+Calculations and code for using details in paper cited papers above is described in [@parsons2023cutpoints].
+
+## Objectives/Questions
+
+- We have a prediction model which has an AUC of about 0.8 and we want to know whether it'll be worthwhile implementing it within a CDSS to reduce healthcare costs (giving people that are unlikely to fall the intervention at \$77.3 a pop!)
+
+- We are currently in a geriatric ward where the fall rate is about 0.1 (1 in 10 admitted patients have a fall) but are also interested in implementing the same model in the acute care ward (fall rate = 0.03). Would we expect to make the same conclusion?
+
+- We think we can improve the performance of the model up to 0.95 with some extra effort by the models - would this change our conclusion?
+
+
+## pre-`{predictNMB}` primer on the distributions we will be using.
+
+
+## `{predictNMB}`
 
 ```{r}
 library(predictNMB)
 ```
 
-### Example problem - inpatient falls
-
--   Falls leads to about 3 lost QALYs
--   Fall prevention education: costs \$150 per patient and reduces probability of fall by 30%
--   WTP for us is \$28033 AUD
-
-Current practice: Everyone gets the fall prevention intervention (treat-all approach).
-
-We have a prediction model which has an AUC of about 0.8 and we want to know whether it'll be worthwhile implementing it within a CDSS to reduce healthcare costs (giving people that are unlikely to fall the intervention at \$150 a pop!)
-
-We are currently in a geriatric ward where the fall rate is about 0.1 (1 in 10 admitted patients have a fall) but are also interested in implementing the same model in the acute care ward (fall rate = 0.03). Would we expect to make the same conclusion?
-
-We think we can improve the performance of the model up to 0.95 with some extra effort by the models - would this change our conclusion?
-
 ## Making our samplers
 
-```{r}
+```{r eval=FALSE}
 
 training_sampler <- get_nmb_sampler()
 
@@ -33,14 +49,17 @@ validation_sampler <- get_nmb_sampler()
 
 ## Running our simulation (primary use-case)
 
-```{r}
+```{r eval=FALSE}
 primary_sim <- do_nmb_sim()
 ```
 
-### Interpreting our results
+## Interpreting our results
 
-```{r}
+```{r eval=FALSE}
 autoplot(primary_sim)
 
 ce_plot(primary_sim)
 ```
+
+
+# References
