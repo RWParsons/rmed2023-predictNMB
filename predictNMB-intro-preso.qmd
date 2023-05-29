@@ -5,6 +5,7 @@ format:
   revealjs:
     theme: league
     embed-resources: true
+    output-file: "index"
 ---
 
 ## The next hour of your life
@@ -19,32 +20,31 @@ format:
 
 ## Who am I? {.smaller}
 
-![](www/who-am-i/perth-map.png){.absolute width=900 height=600}
+![](www/who-am-i/perth-map.png){.absolute width="900" height="600"}
 
 ## Who am I? {.smaller}
 
 ::: columns
 ::: {.column width="50%"}
-![](www/who-am-i/quokka.jpg){.absolute width=450 height=350}
+![](www/who-am-i/quokka.jpg){.absolute width="450" height="350"}
 :::
+
 ::: {.column width="50%"}
-![](www/who-am-i/wa-sunset.jpg){.absolute width=464 height=350}
+![](www/who-am-i/wa-sunset.jpg){.absolute width="464" height="350"}
 :::
 :::
 
 ## Who am I? {.smaller}
-![](www/who-am-i/qut-map.png){.absolute width=900 height=600}
+
+![](www/who-am-i/qut-map.png){.absolute width="900" height="600"}
 
 ## Who am I? {.smaller}
 
-![](www/who-am-i/2032olympicscandidatecitylogo.png){.absolute right=250 height=600 width=600}
+![](www/who-am-i/2032olympicscandidatecitylogo.png){.absolute right="250" height="600" width="600"}
 
 ## Who am I? {.smaller}
 
-
-![](www/who-am-i/beach.jpg){.absolute left=0 height=300 width=500} ![](www/who-am-i/bris-mountain.jpg){.absolute right=0 height=300 width=500}
-![](www/who-am-i/track-night.jpg){.absolute bottom=0 left=0 height=300 width=500}
-![](www/who-am-i/red-belly-black.jpg){.absolute bottom=0 right=0 height=300 width=500}
+![](www/who-am-i/beach.jpg){.absolute left="0" height="300" width="500"} ![](www/who-am-i/bris-mountain.jpg){.absolute right="0" height="300" width="500"} ![](www/who-am-i/track-night.jpg){.absolute bottom="0" left="0" height="300" width="500"} ![](www/who-am-i/red-belly-black.jpg){.absolute bottom="0" right="0" height="300" width="500"}
 
 ## Who am I? {.smaller}
 
@@ -54,10 +54,7 @@ Currently:
 :::
 
 ::: {.column width="85%"}
-PhD Candidate and Senior Research Assistant at AusHSI (QUT)
-<br><br>
-![](www/who-am-i/aushsi-logo.png){.absolute left=450 top=0 height=85}
-![](www/who-am-i/dhcrc-logo.png){.absolute right=120 top=0 height=85}
+PhD Candidate and Senior Research Assistant at AusHSI (QUT) <br><br> ![](www/who-am-i/aushsi-logo.png){.absolute left="450" top="0" height="85"} ![](www/who-am-i/dhcrc-logo.png){.absolute right="120" top="0" height="85"}
 :::
 :::
 
@@ -67,14 +64,13 @@ Previously:
 :::
 
 ::: {.column width="85%"}
-**Work**
-![](www/who-am-i/r-logo.png){.absolute height=25 right=50 top=255}
-![](www/who-am-i/r-logo.png){.absolute height=25 right=50 top=320}
+**Work** ![](www/who-am-i/r-logo.png){.absolute height="25" right="50" top="255"} ![](www/who-am-i/r-logo.png){.absolute height="25" right="50" top="320"}
 
 ::: columns
 ::: {.column width="70%"}
-- Data Analyst - IVF (City Fertility) 
+-   Data Analyst - IVF (City Fertility)
 :::
+
 ::: {.column width="20%"}
 2019-2020
 :::
@@ -82,8 +78,9 @@ Previously:
 
 ::: columns
 ::: {.column width="70%"}
-- Research Assistant - Radiology (IMED) 
+-   Research Assistant - Radiology (IMED)
 :::
+
 ::: {.column width="20%"}
 2018-2019
 :::
@@ -91,21 +88,21 @@ Previously:
 
 ::: columns
 ::: {.column width="70%"}
-- Scientist - Medical Diagnostics (Ellume)
+-   Scientist - Medical Diagnostics (Ellume)
 :::
+
 ::: {.column width="20%"}
 2016-2018
 :::
 :::
 
-**School**
-![](www/who-am-i/sas-logo.png){.absolute height=25 right=25 top=585}
-![](www/who-am-i/r-logo.png){.absolute height=25 right=50 top=515}
+**School** ![](www/who-am-i/sas-logo.png){.absolute height="25" right="25" top="585"} ![](www/who-am-i/r-logo.png){.absolute height="25" right="50" top="515"}
 
 ::: columns
 ::: {.column width="70%"}
-- Master of Medical Statistics
+-   Master of Medical Statistics
 :::
+
 ::: {.column width="20%"}
 2019-2020
 :::
@@ -113,8 +110,9 @@ Previously:
 
 ::: columns
 ::: {.column width="70%"}
-- BSc Biomed + Honours (Neuroscience)
+-   BSc Biomed + Honours (Neuroscience)
 :::
+
 ::: {.column width="20%"}
 2015-2017
 :::
@@ -122,33 +120,25 @@ Previously:
 
 ::: columns
 ::: {.column width="70%"}
-- BSc Phys(io/ical)therapy
+-   BSc Phys(io/ical)therapy
 :::
+
 ::: {.column width="20%"}
 2012-2014
 :::
 :::
-
 :::
 :::
 
 # Who are you?
 
-------------------------------------------------------------------------
-
 ## ![](www/mentimeter_qr_code.png){.absolute right="250"}
-
-::: {style="position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;"}
-<iframe sandbox="allow-scripts allow-same-origin allow-presentation" allowfullscreen="true" allowtransparency="true" frameborder="0" height="315" src="https://www.mentimeter.com/app/presentation/alr8yyu8vcuxq5843c5n8yhaprmnyan2/embed" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" width="420">
-
-</iframe>
-:::
 
 # What is a clinical Decision Support System?
 
 ## What is a clinical Decision Support System?
 
-![](www/what-is-a-cdss/cdss-diagram.png){.absolute left=350 height=500}
+![](www/what-is-a-cdss/cdss-diagram.png){.absolute left="350" height="500"}
 
 ## annalise.ai's chest x-ray decision support {.smaller}
 
@@ -166,7 +156,7 @@ Previously:
 :::
 :::
 
-![](www/what-is-a-cdss/annalise-cxr.gif){.absolute right=330 bottom=0 height=300}
+![](www/what-is-a-cdss/annalise-cxr.gif){.absolute right="330" bottom="0" height="300"}
 
 <!-- <img src="/www/what-is-a-cdss/annalise-cxr.gif" height="70%" width="70%"/> -->
 
