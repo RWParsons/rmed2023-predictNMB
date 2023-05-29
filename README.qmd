@@ -2,9 +2,11 @@
 format: gfm
 ---
 
-# predictNMB - R/Medicine 2023 Demo <a href='https://docs.ropensci.org/predictNMB/'><img src='www/predictNMB/logo.png' align="right" height="139" /></a>
+# predictNMB - R/Medicine 2023 Demo <a href='https://docs.ropensci.org/predictNMB/'><img src="www/predictNMB/logo.png" align="right" height="139"/></a>
 
 This repository contains the content for my R-Medicine 2023 demo on `{preditNMB}`.
+
+### [Presentation slides](https://rwparsons.github.io/rmed2023-predictNMB)
 
 The code used to make the presentation is in `'predictNMB-intro-preso.qmd'`.
 
