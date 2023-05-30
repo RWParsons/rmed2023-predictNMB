@@ -1,6 +1,20 @@
 # predictNMB-demo
 Rex Parsons
 
+If you haven’t already, please install these packages
+
+``` r
+install.packages(c("predictNMB", "ggplot2", "purrr", "cowplot"))
+```
+
+``` r
+library(predictNMB)
+library(ggplot2)
+library(purrr)
+library(cowplot)
+library(parallel)
+```
+
 ## Example problem and inputs required - inpatient falls
 
 - Falls leads to about 0.04 lost Quality-Adjusted Life Years (QALYs)
@@ -54,22 +68,22 @@ the distributions above for the healthcare costs and the QALYs
 associated with a fall:
 
 ``` r
-library(ggplot2)
-
 data.frame(QALYs_lost = rbeta(10000, shape1 = 2.95, shape2 = 32.25)) |>
   ggplot(aes(x = QALYs_lost)) + 
-  geom_histogram()
+  geom_histogram() +
+  theme_bw()
 ```
 
-![](predictNMB-demo_files/figure-commonmark/unnamed-chunk-2-1.png)
+![](predictNMB-demo_files/figure-commonmark/unnamed-chunk-4-1.png)
 
 ``` r
 data.frame(fall_costs = rgamma(10000, shape = 22.05, rate = 0.0033)) |>
   ggplot(aes(x = fall_costs)) + 
-  geom_histogram()
+  geom_histogram() +
+  theme_bw()
 ```
 
-![](predictNMB-demo_files/figure-commonmark/unnamed-chunk-2-2.png)
+![](predictNMB-demo_files/figure-commonmark/unnamed-chunk-4-2.png)
 
 We will be using these sampling functions within our NMB sampling
 functions!
@@ -78,30 +92,48 @@ functions!
 
 ## `{predictNMB}`
 
-``` r
-library(predictNMB)
-```
-
 ## Making our samplers
 
 ``` r
-training_sampler <- get_nmb_sampler()
-
 validation_sampler <- get_nmb_sampler()
+
+training_sampler <- get_nmb_sampler()
 ```
 
-## Running our simulation (primary use-case)
+## Primary analyses
+
+### Running our simulation (primary use-case)
 
 ``` r
+cl <- makeCluster(detectCores() - 1)
+
 primary_sim <- do_nmb_sim()
 ```
 
-## Interpreting our results
+### Interpreting our results
 
 ``` r
-autoplot(primary_sim)
+summary(primary_sim)
+
+autoplot(primary_sim) + theme_sim()
 
 ce_plot(primary_sim)
+```
+
+## Acute care setting?
+
+``` r
+acute_care_sim <- do_nmb_sim()
+
+summary(acute_care_sim)
+autoplot(acute_care_sim)
+ce_plot(acute_care_sim)
+```
+
+## What if we improve the model discrimination (AUC)?
+
+``` r
+auc_screen <- screen_simulation_inputs()
 ```
 
 # References

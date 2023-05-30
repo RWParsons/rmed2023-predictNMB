@@ -72,46 +72,114 @@ We will be using these sampling functions within our NMB sampling functions!
 
 ## Making our samplers
 
-```{r, eval=FALSE}
-validation_sampler <- get_nmb_sampler()
+```{r}
+validation_sampler <- get_nmb_sampler(
+  outcome_cost = function()  rgamma(1, shape = 22.05, rate = 0.0033),
+  wtp = 28033,
+  qalys_lost = function() rbeta(1, shape1 = 2.95, shape2 = 32.25),
+  high_risk_group_treatment_effect = function() exp(rnorm(1, mean = -0.844, sd = 0.304)),
+  high_risk_group_treatment_cost = 77.3,
+  low_risk_group_treatment_effect = 0,
+  low_risk_group_treatment_cost = 0,
+  use_expected_values = FALSE
+)
 
-training_sampler <- get_nmb_sampler()
+
+training_sampler <- get_nmb_sampler(
+  outcome_cost = function()  rgamma(1, shape = 22.05, rate = 0.0033),
+  wtp = 28033,
+  qalys_lost = function() rbeta(1, shape1 = 2.95, shape2 = 32.25),
+  high_risk_group_treatment_effect = function() exp(rnorm(1, mean = -0.844, sd = 0.304)),
+  high_risk_group_treatment_cost = 77.3,
+  low_risk_group_treatment_effect = 0,
+  low_risk_group_treatment_cost = 0,
+  use_expected_values = TRUE
+)
 ```
 
 ## Primary analyses
 
 ### Running our simulation (primary use-case)
 
-```{r, eval=FALSE}
+```{r}
 cl <- makeCluster(detectCores() - 1)
 
-primary_sim <- do_nmb_sim()
+primary_sim <- do_nmb_sim(
+  n_sims = 500,
+  n_valid = 10000,
+  sim_auc = 0.8,
+  event_rate = 0.1,
+  cutpoint_methods = get_inbuilt_cutpoint_methods(),
+  fx_nmb_training = training_sampler,
+  fx_nmb_evaluation = validation_sampler,
+  show_progress = TRUE,
+  cl = cl
+)
 ```
 
 ### Interpreting our results
 
-```{r, eval=FALSE}
+```{r}
 summary(primary_sim)
 
 autoplot(primary_sim) + theme_sim()
+autoplot(primary_sim, what = "cutpoints") + theme_sim()
+autoplot(primary_sim, what = "inb", inb_ref_col = "all") + theme_sim()
+autoplot(primary_sim, what = "qalys") + theme_sim()
+autoplot(primary_sim, what = "costs") + theme_sim()
 
-ce_plot(primary_sim)
+ce_plot(primary_sim, ref_col = "all", methods_order = c("all", "none", "youden", "value optimising"))
 ```
 
 ## Acute care setting?
 
-```{r, eval=FALSE}
-acute_care_sim <- do_nmb_sim()
+```{r}
+acute_care_sim <- do_nmb_sim(
+  n_sims = 500,
+  n_valid = 10000,
+  sim_auc = 0.8,
+  event_rate = 0.03,
+  cutpoint_methods = get_inbuilt_cutpoint_methods(),
+  fx_nmb_training = training_sampler,
+  fx_nmb_evaluation = validation_sampler,
+  show_progress = TRUE,
+  cl = cl
+)
 
 summary(acute_care_sim)
+summary(acute_care_sim, what = "cutpoints")
 autoplot(acute_care_sim)
-ce_plot(acute_care_sim)
+
+ce_plot(acute_care_sim, ref_col = "all", methods_order = c("all", "none", "youden", "value optimising"))
 ```
 
 ## What if we improve the model discrimination (AUC)?
 
-```{r, eval=FALSE}
-auc_screen <- screen_simulation_inputs()
+```{r}
+auc_screen <- screen_simulation_inputs(
+  n_sims = 500,
+  n_valid = 10000,
+  sim_auc = seq(0.8, 0.95, 0.05),
+  event_rate = 0.1,
+  cutpoint_methods = get_inbuilt_cutpoint_methods(),
+  fx_nmb_training = training_sampler,
+  fx_nmb_evaluation = validation_sampler,
+  show_progress = TRUE,
+  cl = cl
+)
+
+autoplot(auc_screen, methods_order = c("all", "none", "youden", "value optimising"), dodge_width = 0.01)
+
+map(1:4, \(x){
+  ce_plot(auc_screen$simulations[[x]], ref_col = "all", methods_order = c("all", "none", "youden", "value optimising"))
+}) |> 
+  (\(x) {
+    leg <- get_legend(x[[1]])
+    new_plots <- map(x, function(x) x  + theme_bw() + theme(legend.position = "none") + xlab("Inc. Benefit (QALYs)")) 
+    g <- plot_grid(plotlist = new_plots, ncol = 2, nrow = 2, labels = seq(0.8, 0.95, 0.05), label_y = 1.15) +
+      theme(plot.margin = margin(1, 1, 1, 1, "cm"))
+    plot_grid(g, leg, rel_widths = c(0.5, 0.1), nrow = 1) + theme(plot.margin = margin(r=1, unit="cm"))
+  })()
 ```
 
 # References
