@@ -13,6 +13,7 @@ format:
 -   Who am I?
 -   Who are you?
 -   What is a clinical decision support system?
+-   Why we should consider costs and use `{predictNMB}`
 -   **THE ENTIRE FIELD OF HEALTH ECONOMICS**
 -   coding with `{predictNMB}`
 
@@ -54,81 +55,27 @@ Currently:
 :::
 
 ::: {.column width="85%"}
-PhD Candidate and Senior Research Assistant at AusHSI (QUT) <br><br> ![](www/who-am-i/aushsi-logo.png){.absolute left="450" top="0" height="85"} ![](www/who-am-i/dhcrc-logo.png){.absolute right="120" top="0" height="85"}
+PhD Candidate and Senior Research Assistant at AusHSI (QUT)  ![](www/who-am-i/aushsi-logo.png){.absolute left="450" top="0" height="85"} ![](www/who-am-i/dhcrc-logo.png){.absolute right="120" top="0" height="85"}
 :::
 :::
 
 ::: columns
-::: {.column width="15%"}
-Previously:
+::: {.column width="40%"}
+predictNMB Team:
+
+- Rex Parsons
+- Adrian Barnett
+- Robin Blythe
+- Steven McPhail^(Supervisor)^
+- Susanna Cramb^(Supervisor)^
 :::
 
-::: {.column width="85%"}
-**Work** ![](www/who-am-i/r-logo.png){.absolute height="25" right="50" top="255"} ![](www/who-am-i/r-logo.png){.absolute height="25" right="50" top="320"}
-
-::: columns
-::: {.column width="70%"}
--   Data Analyst - IVF (City Fertility)
-:::
-
-::: {.column width="20%"}
-2019-2020
+::: {.column width="60%"}
+![](www/who-am-i/team/predictNMB-team.jpg){.absolute height=550 right=250}
 :::
 :::
 
-::: columns
-::: {.column width="70%"}
--   Research Assistant - Radiology (IMED)
-:::
 
-::: {.column width="20%"}
-2018-2019
-:::
-:::
-
-::: columns
-::: {.column width="70%"}
--   Scientist - Medical Diagnostics (Ellume)
-:::
-
-::: {.column width="20%"}
-2016-2018
-:::
-:::
-
-**School** ![](www/who-am-i/sas-logo.png){.absolute height="25" right="25" top="585"} ![](www/who-am-i/r-logo.png){.absolute height="25" right="50" top="515"}
-
-::: columns
-::: {.column width="70%"}
--   Master of Medical Statistics
-:::
-
-::: {.column width="20%"}
-2019-2020
-:::
-:::
-
-::: columns
-::: {.column width="70%"}
--   BSc Biomed + Honours (Neuroscience)
-:::
-
-::: {.column width="20%"}
-2015-2017
-:::
-:::
-
-::: columns
-::: {.column width="70%"}
--   BSc Phys(io/ical)therapy
-:::
-
-::: {.column width="20%"}
-2012-2014
-:::
-:::
-:::
-:::
 
 # Who are you?
 
@@ -178,17 +125,86 @@ Previously:
 
 ![](www/what-is-a-cdss/prognostic-crystal-ball-mi.jpg)
 
+# Why we should consider costs and use `{predictNMB}`
+
+## Why we should consider costs and use `{predictNMB}` {.smaller}
+
+<b>You're a health service manager wanting to prevent falls at your hospital</b>
+
+. . .
+
+Before you go about evaluating a falls prediction model within a CDSS to assign patients to a falls prevention programme...
+
+> Will this be cost-effective or are my healthcare $$$ best spent elsewhere?
+
+. . .
+
+This depends on:
+
+- Performance of clinical prediction model
+- Prevalence of falls
+- Cost of falls
+- Effectiveness and cost of the fall prevention intervention being guided
+
+## Why we should consider costs and use `{predictNMB}` {.smaller}
+
+<b>You're a clinical prediction model developer</b>
+
+. . .
+
+You're asked to make a clinical prediction model for inpatient falls to be used in a decision support tool but...
+
+The intervention that they have available is _barely_ effective, very expensive and you know that existing models in similar healthcare settings only have an AUC of 0.7...
+
+. . .
+
+![](www/predictNMB/frying-fish.gif){.absolute right=400 height=250}
+
+## Why we should consider costs and use `{predictNMB}` {.smaller}
+
+![](www/predictNMB/leaky-pipe.PNG)
+
+## Why we should consider costs and use `{predictNMB}` {.smaller}
+
+`{predictNMB}`
+
+- User provides inputs for setting & intervention (w/ uncertainty)
+- Simulates & evaluates clinical prediction models within CDSS 
+- Estimates patient benefit and healthcare costs
+
+. . .
+
+![](www/predictNMB/leaky-pipe2.PNG){.absolute right=350 height=310}
+
 # THE ENTIRE FIELD OF HEALTH ECONOMICS
 
 ## THE ENTIRE FIELD OF HEALTH ECONOMICS
 
 ![](www/health-econ/liar.gif)
 
-## What you need to know... {.incremental}
+## What you need to know... {.smaller}
+
+::: columns
+::: {.column width="50%"}
+
+::: {.incremental}
 
 -   Healthcare systems are resource constrained
 -   Health economics concerns how best to allocate resources to areas of greatest benefit
--   Some terms...
+
+:::
+
+:::
+
+::: {.column width="50%"}
+
+:::
+
+:::
+
+. . .
+
+![](www/health-econ/button-choice.png){.absolute right=30 height=600 top=50}
 
 ------------------------------------------------------------------------
 
@@ -208,19 +224,7 @@ AKA
 
 ![](www/health-econ/shut-up-and-take-my-money.gif)
 
-## Incremental cost-effectiveness ratio (ICER)
-
-$$ICER = \frac{Cost_{treatment}-Cost_{ref}}{QALY_{treatment}-QALY_{ref}}$$
-
-ICER = Cost per additional QALY gained
-
-``` r
-if (ICER < WTP) {
-  print("Treatment is cost-effective!")
-}
-```
-
-## Cost-effectiveness
+## Cost-effectiveness plot
 
 ```{r}
 library(tidyverse)
