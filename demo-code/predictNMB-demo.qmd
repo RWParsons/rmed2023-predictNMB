@@ -9,19 +9,18 @@ bibliography: references.bib
 set.seed(42)
 ```
 
-If you haven't already, please install these packages
+If you haven't already, please install the package.
+
 ```{r, eval=F}
-install.packages(c("predictNMB", "ggplot2", "purrr", "cowplot"))
+install.packages("predictNMB", dependencies = "Suggests")
+remotes::install_github("RWParsons/predictNMB", dependencies = "Suggests")
 ```
 
 ```{r}
 library(predictNMB)
 library(ggplot2)
-library(purrr)
-library(cowplot)
 library(parallel)
 ```
-
 
 ## Example problem and inputs required - inpatient falls
 
