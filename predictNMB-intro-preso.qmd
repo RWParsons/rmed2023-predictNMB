@@ -129,6 +129,10 @@ predictNMB Team:
 
 ## Why we should consider costs and use `{predictNMB}` {.smaller}
 
+![](www/predictNMB/leaky-pipe.PNG)
+
+## Why we should consider costs and use `{predictNMB}` {.smaller}
+
 <b>You're a health service manager wanting to prevent falls at your hospital</b>
 
 . . .
@@ -141,10 +145,10 @@ Before you go about evaluating a falls prediction model within a CDSS to assign 
 
 This depends on:
 
-- Performance of clinical prediction model
+- Model performance
 - Prevalence of falls
 - Cost of falls
-- Effectiveness and cost of the fall prevention intervention being guided
+- Intervention effect & cost
 
 ## Why we should consider costs and use `{predictNMB}` {.smaller}
 
@@ -159,10 +163,6 @@ The intervention that they have available is _barely_ effective, very expensive 
 . . .
 
 ![](www/predictNMB/frying-fish.gif){.absolute right=400 height=250}
-
-## Why we should consider costs and use `{predictNMB}` {.smaller}
-
-![](www/predictNMB/leaky-pipe.PNG)
 
 ## Why we should consider costs and use `{predictNMB}` {.smaller}
 
@@ -377,6 +377,7 @@ What is the expected health economic benefit of using a given (hypothetical) CDS
 
 [docs.ropensci.org/predictNMB/](https://docs.ropensci.org/predictNMB/)
 
-``` r
+```{r, eval=F}
 install.packages("predictNMB")
+remotes::install_github("RWParsons/predictNMB")
 ```
