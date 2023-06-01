@@ -37,7 +37,7 @@ library(parallel)
 
 -   Current practice: Everyone gets the fall prevention intervention (treat-all approach).
 
-Calculations and code for using details in paper cited papers above is described in [@parsons2023cutpoints].
+Calculations and code for using details in paper cited papers above is described in [@parsons2023cutpoints]. We used `{fitdistrplus}` but you can also use a shiny app by Nicole White and Robin Blythe: `ShinyPrior` [@white2023shinyprior].
 
 ## Objectives/Questions
 
@@ -85,15 +85,15 @@ training_sampler <- get_nmb_sampler()
 cl <- makeCluster(detectCores() - 1)
 
 primary_sim <- do_nmb_sim()
+
+# primary_sim <- readRDS(file.path(here::here("demo-code", "saved-sims"), "primary_sim.rds"))
 ```
 
 ### Interpreting our results
 
 ```{r, eval=FALSE}
 summary(primary_sim)
-
 autoplot(primary_sim) + theme_sim()
-
 ce_plot(primary_sim)
 ```
 
@@ -101,6 +101,8 @@ ce_plot(primary_sim)
 
 ```{r, eval=FALSE}
 acute_care_sim <- do_nmb_sim()
+
+# acute_care_sim <- readRDS(file.path(here::here("demo-code", "saved-sims"), "acute_care_sim.rds"))
 
 summary(acute_care_sim)
 autoplot(acute_care_sim)
@@ -111,6 +113,8 @@ ce_plot(acute_care_sim)
 
 ```{r, eval=FALSE}
 auc_screen <- screen_simulation_inputs()
+
+# auc_screen <- readRDS(file.path(here::here("demo-code", "saved-sims"), "auc_screen.rds"))
 ```
 
 # References

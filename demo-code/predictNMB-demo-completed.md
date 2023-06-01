@@ -1,17 +1,16 @@
 # predictNMB-demo
 Rex Parsons
 
-If you haven’t already, please install these packages
+If you haven’t already, please install the package.
 
 ``` r
-install.packages(c("predictNMB", "ggplot2", "purrr", "cowplot"))
+install.packages("predictNMB", dependencies = "Suggests")
+remotes::install_github("RWParsons/predictNMB", dependencies = "Suggests")
 ```
 
 ``` r
 library(predictNMB)
 library(ggplot2)
-library(purrr)
-library(cowplot)
 library(parallel)
 ```
 
@@ -38,7 +37,11 @@ library(parallel)
   (treat-all approach).
 
 Calculations and code for using details in paper cited papers above is
-described in (Parsons et al. 2023).
+described in (Parsons et al. 2023). We used `{fitdistrplus}` but you can
+also use a shiny app by Nicole White and Robin Blythe: `ShinyPrior`
+(White and Blythe 2023).
+
+# TODO add table containing everything above that’s used within get_nmb_sampler() with R code for distributions and reference
 
 ## Objectives/Questions
 
@@ -131,7 +134,7 @@ primary_sim <- do_nmb_sim(
   n_valid = 10000,
   sim_auc = 0.8,
   event_rate = 0.1,
-  cutpoint_methods = get_inbuilt_cutpoint_methods(),
+  cutpoint_methods = c("all", "none", "youden", "value_optimising"),
   fx_nmb_training = training_sampler,
   fx_nmb_evaluation = validation_sampler,
   show_progress = TRUE,
@@ -145,17 +148,13 @@ primary_sim <- do_nmb_sim(
 summary(primary_sim)
 ```
 
-    # A tibble: 8 × 3
+    # A tibble: 4 × 3
       method           median `95% CI`         
       <chr>             <dbl> <chr>            
-    1 all               -581. -926.9 to -279.1 
-    2 cost minimising   -582. -923.6 to -288.3 
-    3 index of union    -653. -1025 to -357.3  
-    4 none              -909. -1329.8 to -564.6
-    5 prod sens spec    -659. -1045 to -350    
-    6 roc01             -658. -1049.4 to -354  
-    7 value optimising  -588. -937.4 to -292.5 
-    8 youden            -659. -1050.3 to -342.9
+    1 all               -577. -923.9 to -283.2 
+    2 none              -910. -1356.2 to -564.4
+    3 value optimising  -587. -954.8 to -298.6 
+    4 youden            -653. -1008.9 to -366.1
 
 ``` r
 autoplot(primary_sim) + theme_sim()
@@ -188,10 +187,16 @@ autoplot(primary_sim, what = "costs") + theme_sim()
 ![](predictNMB-demo-completed_files/figure-commonmark/unnamed-chunk-7-5.png)
 
 ``` r
-ce_plot(primary_sim, ref_col = "all", methods_order = c("all", "none", "youden", "value optimising"))
+ce_plot(primary_sim, ref_col = "all")
 ```
 
 ![](predictNMB-demo-completed_files/figure-commonmark/unnamed-chunk-7-6.png)
+
+``` r
+ce_plot(primary_sim, ref_col = "all", add_prop_ce = TRUE)
+```
+
+![](predictNMB-demo-completed_files/figure-commonmark/unnamed-chunk-7-7.png)
 
 ## Acute care setting?
 
@@ -201,7 +206,7 @@ acute_care_sim <- do_nmb_sim(
   n_valid = 10000,
   sim_auc = 0.8,
   event_rate = 0.03,
-  cutpoint_methods = get_inbuilt_cutpoint_methods(),
+  cutpoint_methods = c("all", "none", "youden", "value_optimising"),
   fx_nmb_training = training_sampler,
   fx_nmb_evaluation = validation_sampler,
   show_progress = TRUE,
@@ -211,42 +216,34 @@ acute_care_sim <- do_nmb_sim(
 summary(acute_care_sim)
 ```
 
-    # A tibble: 8 × 3
+    # A tibble: 4 × 3
       method           median `95% CI`        
       <chr>             <dbl> <chr>           
-    1 all               -227. -339.7 to -139.3
-    2 cost minimising   -206. -315.6 to -117.4
-    3 index of union    -208. -322.8 to -120  
-    4 none              -271. -409 to -168.2  
-    5 prod sens spec    -211. -324.2 to -122.6
-    6 roc01             -210. -324.2 to -121.9
-    7 value optimising  -209. -321.3 to -120.2
-    8 youden            -213. -324.2 to -124.1
+    1 all               -227. -334.2 to -138.5
+    2 none              -268. -403.5 to -167.8
+    3 value optimising  -208. -327.4 to -119.7
+    4 youden            -210. -335.6 to -120.3
 
 ``` r
 summary(acute_care_sim, what = "cutpoints")
 ```
 
-    # A tibble: 8 × 3
+    # A tibble: 4 × 3
       method           median `95% CI`
       <chr>             <dbl> <chr>   
     1 all                0    0 to 0  
-    2 cost minimising    0.02 0 to 0  
-    3 index of union     0.04 0 to 0.1
-    4 none               1    1 to 1  
-    5 prod sens spec     0.04 0 to 0.1
-    6 roc01              0.04 0 to 0.1
-    7 value optimising   0.02 0 to 0.1
-    8 youden             0.03 0 to 0.1
+    2 none               1    1 to 1  
+    3 value optimising   0.02 0 to 0.1
+    4 youden             0.03 0 to 0.1
 
 ``` r
-autoplot(acute_care_sim)
+autoplot(acute_care_sim) + theme_sim()
 ```
 
 ![](predictNMB-demo-completed_files/figure-commonmark/unnamed-chunk-8-1.png)
 
 ``` r
-ce_plot(acute_care_sim, ref_col = "all", methods_order = c("all", "none", "youden", "value optimising"))
+ce_plot(acute_care_sim, ref_col = "all", add_prop_ce = TRUE)
 ```
 
 ![](predictNMB-demo-completed_files/figure-commonmark/unnamed-chunk-8-2.png)
@@ -259,7 +256,7 @@ auc_screen <- screen_simulation_inputs(
   n_valid = 10000,
   sim_auc = seq(0.8, 0.95, 0.05),
   event_rate = 0.1,
-  cutpoint_methods = get_inbuilt_cutpoint_methods(),
+  cutpoint_methods = c("all", "none", "youden", "value_optimising"),
   fx_nmb_training = training_sampler,
   fx_nmb_evaluation = validation_sampler,
   show_progress = TRUE,
@@ -276,7 +273,7 @@ auc_screen <- screen_simulation_inputs(
     Running simulation: [4/4]
 
 ``` r
-autoplot(auc_screen, methods_order = c("all", "none", "youden", "value optimising"), dodge_width = 0.01)
+autoplot(auc_screen)
 ```
 
     No value for 'x_axis_var' given.
@@ -284,21 +281,6 @@ autoplot(auc_screen, methods_order = c("all", "none", "youden", "value optimisin
     Screening over sim_auc by default
 
 ![](predictNMB-demo-completed_files/figure-commonmark/unnamed-chunk-9-1.png)
-
-``` r
-map(1:4, \(x){
-  ce_plot(auc_screen$simulations[[x]], ref_col = "all", methods_order = c("all", "none", "youden", "value optimising"))
-}) |> 
-  (\(x) {
-    leg <- get_legend(x[[1]])
-    new_plots <- map(x, function(x) x  + theme_bw() + theme(legend.position = "none") + xlab("Inc. Benefit (QALYs)")) 
-    g <- plot_grid(plotlist = new_plots, ncol = 2, nrow = 2, labels = seq(0.8, 0.95, 0.05), label_y = 1.15) +
-      theme(plot.margin = margin(1, 1, 1, 1, "cm"))
-    plot_grid(g, leg, rel_widths = c(0.5, 0.1), nrow = 1) + theme(plot.margin = margin(r=1, unit="cm"))
-  })()
-```
-
-![](predictNMB-demo-completed_files/figure-commonmark/unnamed-chunk-9-2.png)
 
 # References
 
@@ -351,6 +333,15 @@ Parsons, Rex, Robin Blythe, Susanna M Cramb, and Steven M McPhail. 2023.
 Align Clinical Decision Support Toward Value-Based Healthcare.” *Journal
 of the American Medical Informatics Association*, March.
 <https://doi.org/10.1093/jamia/ocad042>.
+
+</div>
+
+<div id="ref-white2023shinyprior" class="csl-entry">
+
+White, Nicole, and Robin Blythe. 2023. “ShinyPrior: A Tool for
+Estimating Probability Distributions Using Published Evidence.” OSF
+Preprints zf62e. Center for Open Science.
+<https://EconPapers.repec.org/RePEc:osf:osfxxx:zf62e>.
 
 </div>
 

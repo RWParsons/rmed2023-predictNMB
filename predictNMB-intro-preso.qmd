@@ -55,7 +55,7 @@ Currently:
 :::
 
 ::: {.column width="85%"}
-PhD Candidate and Senior Research Assistant at AusHSI (QUT)  ![](www/who-am-i/aushsi-logo.png){.absolute left="450" top="0" height="85"} ![](www/who-am-i/dhcrc-logo.png){.absolute right="120" top="0" height="85"}
+PhD Candidate and Senior Research Assistant at AusHSI (QUT) ![](www/who-am-i/aushsi-logo.png){.absolute left="450" top="0" height="85"} ![](www/who-am-i/dhcrc-logo.png){.absolute right="120" top="0" height="85"}
 :::
 :::
 
@@ -63,19 +63,17 @@ PhD Candidate and Senior Research Assistant at AusHSI (QUT)  ![](www/who-am-i/au
 ::: {.column width="40%"}
 predictNMB Team:
 
-- Rex Parsons
-- Adrian Barnett
-- Robin Blythe
-- Steven McPhail^(Supervisor)^
-- Susanna Cramb^(Supervisor)^
+-   Rex Parsons
+-   Adrian Barnett
+-   Robin Blythe
+-   Steven McPhail^(Supervisor)^
+-   Susanna Cramb^(Supervisor)^
 :::
 
 ::: {.column width="60%"}
-![](www/who-am-i/team/predictNMB-team.jpg){.absolute height=550 right=250}
+![](www/who-am-i/team/predictNMB-team.jpg){.absolute height="550" right="250"}
 :::
 :::
-
-
 
 # Who are you?
 
@@ -139,16 +137,16 @@ predictNMB Team:
 
 Before you go about evaluating a falls prediction model within a CDSS to assign patients to a falls prevention programme...
 
-> Will this be cost-effective or are my healthcare $$$ best spent elsewhere?
+> Will this be cost-effective or are my healthcare \$\$\$ best spent elsewhere?
 
 . . .
 
 This depends on:
 
-- Model performance
-- Prevalence of falls
-- Cost of falls
-- Intervention effect & cost
+-   Model performance
+-   Prevalence of falls
+-   Cost of falls
+-   Intervention effect & cost
 
 ## Why we should consider costs and use `{predictNMB}` {.smaller}
 
@@ -158,23 +156,23 @@ This depends on:
 
 You're asked to make a clinical prediction model for inpatient falls to be used in a decision support tool but...
 
-The intervention that they have available is _barely_ effective, very expensive and you know that existing models in similar healthcare settings only have an AUC of 0.7...
+The intervention that they have available is *barely* effective, very expensive and you know that existing models in similar healthcare settings only have an AUC of 0.7...
 
 . . .
 
-![](www/predictNMB/frying-fish.gif){.absolute right=400 height=250}
+![](www/predictNMB/frying-fish.gif){.absolute right="400" height="250"}
 
 ## Why we should consider costs and use `{predictNMB}` {.smaller}
 
 `{predictNMB}`
 
-- User provides inputs for setting & intervention (w/ uncertainty)
-- Simulates & evaluates clinical prediction models within CDSS 
-- Estimates patient benefit and healthcare costs
+-   User provides inputs for setting & intervention (w/ uncertainty)
+-   Simulates & evaluates clinical prediction models within CDSS
+-   Estimates patient benefit and healthcare costs
 
 . . .
 
-![](www/predictNMB/leaky-pipe2.PNG){.absolute right=350 height=310}
+![](www/predictNMB/leaky-pipe2.PNG){.absolute right="350" height="310"}
 
 # THE ENTIRE FIELD OF HEALTH ECONOMICS
 
@@ -186,25 +184,19 @@ The intervention that they have available is _barely_ effective, very expensive 
 
 ::: columns
 ::: {.column width="50%"}
-
-::: {.incremental}
-
+::: incremental
 -   Healthcare systems are resource constrained
 -   Health economics concerns how best to allocate resources to areas of greatest benefit
-
 :::
-
 :::
 
 ::: {.column width="50%"}
-
 :::
-
 :::
 
 . . .
 
-![](www/health-econ/button-choice.png){.absolute right=30 height=600 top=50}
+![](www/health-econ/button-choice.png){.absolute right="30" height="600" top="50"}
 
 ------------------------------------------------------------------------
 

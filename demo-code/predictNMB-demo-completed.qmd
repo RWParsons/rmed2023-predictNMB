@@ -37,7 +37,9 @@ library(parallel)
 
 -   Current practice: Everyone gets the fall prevention intervention (treat-all approach).
 
-Calculations and code for using details in paper cited papers above is described in [@parsons2023cutpoints].
+Calculations and code for using details in paper cited papers above is described in [@parsons2023cutpoints]. We used `{fitdistrplus}` but you can also use a shiny app by Nicole White and Robin Blythe: `ShinyPrior` [@white2023shinyprior].
+
+# TODO add table containing everything above that's used within get_nmb_sampler() with R code for distributions and reference
 
 ## Objectives/Questions
 
@@ -108,7 +110,7 @@ primary_sim <- do_nmb_sim(
   n_valid = 10000,
   sim_auc = 0.8,
   event_rate = 0.1,
-  cutpoint_methods = get_inbuilt_cutpoint_methods(),
+  cutpoint_methods = c("all", "none", "youden", "value_optimising"),
   fx_nmb_training = training_sampler,
   fx_nmb_evaluation = validation_sampler,
   show_progress = TRUE,
@@ -127,7 +129,8 @@ autoplot(primary_sim, what = "inb", inb_ref_col = "all") + theme_sim()
 autoplot(primary_sim, what = "qalys") + theme_sim()
 autoplot(primary_sim, what = "costs") + theme_sim()
 
-ce_plot(primary_sim, ref_col = "all", methods_order = c("all", "none", "youden", "value optimising"))
+ce_plot(primary_sim, ref_col = "all")
+ce_plot(primary_sim, ref_col = "all", add_prop_ce = TRUE)
 ```
 
 ## Acute care setting?
@@ -138,7 +141,7 @@ acute_care_sim <- do_nmb_sim(
   n_valid = 10000,
   sim_auc = 0.8,
   event_rate = 0.03,
-  cutpoint_methods = get_inbuilt_cutpoint_methods(),
+  cutpoint_methods = c("all", "none", "youden", "value_optimising"),
   fx_nmb_training = training_sampler,
   fx_nmb_evaluation = validation_sampler,
   show_progress = TRUE,
@@ -147,9 +150,9 @@ acute_care_sim <- do_nmb_sim(
 
 summary(acute_care_sim)
 summary(acute_care_sim, what = "cutpoints")
-autoplot(acute_care_sim)
+autoplot(acute_care_sim) + theme_sim()
 
-ce_plot(acute_care_sim, ref_col = "all", methods_order = c("all", "none", "youden", "value optimising"))
+ce_plot(acute_care_sim, ref_col = "all", add_prop_ce = TRUE)
 ```
 
 ## What if we improve the model discrimination (AUC)?
@@ -160,25 +163,23 @@ auc_screen <- screen_simulation_inputs(
   n_valid = 10000,
   sim_auc = seq(0.8, 0.95, 0.05),
   event_rate = 0.1,
-  cutpoint_methods = get_inbuilt_cutpoint_methods(),
+  cutpoint_methods = c("all", "none", "youden", "value_optimising"),
   fx_nmb_training = training_sampler,
   fx_nmb_evaluation = validation_sampler,
   show_progress = TRUE,
   cl = cl
 )
 
-autoplot(auc_screen, methods_order = c("all", "none", "youden", "value optimising"), dodge_width = 0.01)
-
-map(1:4, \(x){
-  ce_plot(auc_screen$simulations[[x]], ref_col = "all", methods_order = c("all", "none", "youden", "value optimising"))
-}) |> 
-  (\(x) {
-    leg <- get_legend(x[[1]])
-    new_plots <- map(x, function(x) x  + theme_bw() + theme(legend.position = "none") + xlab("Inc. Benefit (QALYs)")) 
-    g <- plot_grid(plotlist = new_plots, ncol = 2, nrow = 2, labels = seq(0.8, 0.95, 0.05), label_y = 1.15) +
-      theme(plot.margin = margin(1, 1, 1, 1, "cm"))
-    plot_grid(g, leg, rel_widths = c(0.5, 0.1), nrow = 1) + theme(plot.margin = margin(r=1, unit="cm"))
-  })()
+autoplot(auc_screen)
 ```
+
+```{r, include=FALSE}
+# save objects for audience to load without waiting for simulations to run
+saveRDS(primary_sim, file.path(here::here("demo-code", "saved-sims"), "primary_sim.rds"))
+saveRDS(acute_care_sim, file.path(here::here("demo-code", "saved-sims"), "acute_care_sim.rds"))
+saveRDS(auc_screen, file.path(here::here("demo-code", "saved-sims"), "auc_screen.rds"))
+```
+
+
 
 # References

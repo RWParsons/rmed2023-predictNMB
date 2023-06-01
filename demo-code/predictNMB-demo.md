@@ -1,17 +1,16 @@
 # predictNMB-demo
 Rex Parsons
 
-If you haven’t already, please install these packages
+If you haven’t already, please install the package.
 
 ``` r
-install.packages(c("predictNMB", "ggplot2", "purrr", "cowplot"))
+install.packages("predictNMB", dependencies = "Suggests")
+remotes::install_github("RWParsons/predictNMB", dependencies = "Suggests")
 ```
 
 ``` r
 library(predictNMB)
 library(ggplot2)
-library(purrr)
-library(cowplot)
 library(parallel)
 ```
 
@@ -38,7 +37,9 @@ library(parallel)
   (treat-all approach).
 
 Calculations and code for using details in paper cited papers above is
-described in (Parsons et al. 2023).
+described in (Parsons et al. 2023). We used `{fitdistrplus}` but you can
+also use a shiny app by Nicole White and Robin Blythe: `ShinyPrior`
+(White and Blythe 2023).
 
 ## Objectives/Questions
 
@@ -114,9 +115,7 @@ primary_sim <- do_nmb_sim()
 
 ``` r
 summary(primary_sim)
-
 autoplot(primary_sim) + theme_sim()
-
 ce_plot(primary_sim)
 ```
 
@@ -187,6 +186,15 @@ Parsons, Rex, Robin Blythe, Susanna M Cramb, and Steven M McPhail. 2023.
 Align Clinical Decision Support Toward Value-Based Healthcare.” *Journal
 of the American Medical Informatics Association*, March.
 <https://doi.org/10.1093/jamia/ocad042>.
+
+</div>
+
+<div id="ref-white2023shinyprior" class="csl-entry">
+
+White, Nicole, and Robin Blythe. 2023. “ShinyPrior: A Tool for
+Estimating Probability Distributions Using Published Evidence.” OSF
+Preprints zf62e. Center for Open Science.
+<https://EconPapers.repec.org/RePEc:osf:osfxxx:zf62e>.
 
 </div>
 
