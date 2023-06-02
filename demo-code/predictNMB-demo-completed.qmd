@@ -13,13 +13,32 @@ If you haven't already, please install the package.
 
 ```{r, eval=F}
 install.packages("predictNMB", dependencies = "Suggests")
-remotes::install_github("RWParsons/predictNMB", dependencies = "Suggests")
+remotes::install_github("ropensci/predictNMB", dependencies = "Suggests")
 ```
 
 ```{r}
 library(predictNMB)
 library(ggplot2)
 library(parallel)
+```
+
+## pre-`{predictNMB}` primer on the distributions we will be using.
+
+We will be using different distributions to sample different inputs for our simulation. A gamma distribution is often appropriate when sampling \$ and a beta distribution is often best when sampling QALYs due to the shape and limits being sensible (the cost of treatment is unlikely be to be negative and QALYs are bounded to be between 0 and 1, similar to a probability of an event). We can sample from these distributions using R code with the `rgamma()` and `rbeta()` functions:
+
+```{r, message=FALSE}
+data.frame(QALYs_lost = rbeta(10000, shape1 = 2.95, shape2 = 32.25)) |>
+  ggplot(aes(x = QALYs_lost)) + 
+  geom_histogram() +
+  theme_bw() +
+  labs(title = "QALYs lost associated with inpatient fall")
+
+data.frame(fall_costs = rgamma(10000, shape = 22.05, rate = 0.0033)) |>
+  ggplot(aes(x = fall_costs)) + 
+  geom_histogram() +
+  theme_bw() +
+  labs(title = "Healthcare costs associated with inpatient fall") +
+  scale_x_continuous(labels = scales::dollar_format())
 ```
 
 ## Example problem and inputs required - inpatient falls
@@ -39,7 +58,17 @@ library(parallel)
 
 Calculations and code for using details in paper cited papers above is described in [@parsons2023cutpoints]. We used `{fitdistrplus}` but you can also use a shiny app by Nicole White and Robin Blythe: `ShinyPrior` [@white2023shinyprior].
 
-# TODO add table containing everything above that's used within get_nmb_sampler() with R code for distributions and reference
+| Input  | Distribution  | R code |
+|--------|--------| ------|
+| QALYs lost  | $$\mathrm{B}(\alpha = 2.95, \beta = 32.25)$$   | `rbeta(n = 1, shape1 = 2.95, shape2 = 32.25` |
+| Healthcare costs   | $$\Gamma (\alpha = 22.05, \beta = 0.0033) $$   |`rgamma(n = 1, shape = 22.05, rate = 0.0033)` |
+| Treatment effect (hazard) | $$\exp(\mathcal{N}(\mu = -0.844, \sigma = 0.304)) $$   |`exp(rnorm(n = 1, mean = -0.844, sd = 0.304))` |
+| Treatment cost  | \$77.30   | - |
+| WTP  | \$28033   | - |
+
+We will be using these sampling functions within our NMB sampling functions!
+
+![](https://media1.giphy.com/media/7pHTiZYbAoq40/giphy.gif)
 
 ## Objectives/Questions
 
@@ -49,25 +78,6 @@ Calculations and code for using details in paper cited papers above is described
 
 -   We think we can improve the performance of the model up to 0.95 with some extra effort by the models - would this change our conclusion?
 
-## pre-`{predictNMB}` primer on the distributions we will be using.
-
-We will be using different distributions to sample different inputs for our simulation. A gamma distribution is often appropriate when sampling \$ and a beta distribution is often best when sampling QALYs due to the shape and limits being sensible (the cost of treatment is unlikely be to be negative and QALYs are bounded to be between 0 and 1, similar to a probability of an event). We can sample from these distributions using R code with the `rgamma()` and `rbeta()` functions - for example, here are the distributions above for the healthcare costs and the QALYs associated with a fall:
-
-```{r, message=FALSE}
-data.frame(QALYs_lost = rbeta(10000, shape1 = 2.95, shape2 = 32.25)) |>
-  ggplot(aes(x = QALYs_lost)) + 
-  geom_histogram() +
-  theme_bw()
-
-data.frame(fall_costs = rgamma(10000, shape = 22.05, rate = 0.0033)) |>
-  ggplot(aes(x = fall_costs)) + 
-  geom_histogram() +
-  theme_bw()
-```
-
-We will be using these sampling functions within our NMB sampling functions!
-
-![](https://media1.giphy.com/media/7pHTiZYbAoq40/giphy.gif)
 
 ## `{predictNMB}`
 
@@ -179,7 +189,5 @@ saveRDS(primary_sim, file.path(here::here("demo-code", "saved-sims"), "primary_s
 saveRDS(acute_care_sim, file.path(here::here("demo-code", "saved-sims"), "acute_care_sim.rds"))
 saveRDS(auc_screen, file.path(here::here("demo-code", "saved-sims"), "auc_screen.rds"))
 ```
-
-
 
 # References

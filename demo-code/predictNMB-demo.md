@@ -5,7 +5,7 @@ If you haven’t already, please install the package.
 
 ``` r
 install.packages("predictNMB", dependencies = "Suggests")
-remotes::install_github("RWParsons/predictNMB", dependencies = "Suggests")
+remotes::install_github("ropensci/predictNMB", dependencies = "Suggests")
 ```
 
 ``` r
@@ -13,6 +13,37 @@ library(predictNMB)
 library(ggplot2)
 library(parallel)
 ```
+
+## pre-`{predictNMB}` primer on the distributions we will be using.
+
+We will be using different distributions to sample different inputs for
+our simulation. A gamma distribution is often appropriate when sampling
+\$ and a beta distribution is often best when sampling QALYs due to the
+shape and limits being sensible (the cost of treatment is unlikely be to
+be negative and QALYs are bounded to be between 0 and 1, similar to a
+probability of an event). We can sample from these distributions using R
+code with the `rgamma()` and `rbeta()` functions:
+
+``` r
+data.frame(QALYs_lost = rbeta(10000, shape1 = 2.95, shape2 = 32.25)) |>
+  ggplot(aes(x = QALYs_lost)) + 
+  geom_histogram() +
+  theme_bw() +
+  labs(title = "QALYs lost associated with inpatient fall")
+```
+
+![](predictNMB-demo_files/figure-commonmark/unnamed-chunk-4-1.png)
+
+``` r
+data.frame(fall_costs = rgamma(10000, shape = 22.05, rate = 0.0033)) |>
+  ggplot(aes(x = fall_costs)) + 
+  geom_histogram() +
+  theme_bw() +
+  labs(title = "Healthcare costs associated with inpatient fall") +
+  scale_x_continuous(labels = scales::dollar_format())
+```
+
+![](predictNMB-demo_files/figure-commonmark/unnamed-chunk-4-2.png)
 
 ## Example problem and inputs required - inpatient falls
 
@@ -41,6 +72,19 @@ described in (Parsons et al. 2023). We used `{fitdistrplus}` but you can
 also use a shiny app by Nicole White and Robin Blythe: `ShinyPrior`
 (White and Blythe 2023).
 
+| Input                     | Distribution                                         | R code                                         |
+|---------------------------|------------------------------------------------------|------------------------------------------------|
+| QALYs lost                | $$\mathrm{B}(\alpha = 2.95, \beta = 32.25)$$         | `rbeta(n = 1, shape1 = 2.95, shape2 = 32.25`   |
+| Healthcare costs          | $$\Gamma (\alpha = 22.05, \beta = 0.0033) $$         | `rgamma(n = 1, shape = 22.05, rate = 0.0033)`  |
+| Treatment effect (hazard) | $$\exp(\mathcal{N}(\mu = -0.844, \sigma = 0.304)) $$ | `exp(rnorm(n = 1, mean = -0.844, sd = 0.304))` |
+| Treatment cost            | \$77.30                                              | \-                                             |
+| WTP                       | \$28033                                              | \-                                             |
+
+We will be using these sampling functions within our NMB sampling
+functions!
+
+![](https://media1.giphy.com/media/7pHTiZYbAoq40/giphy.gif)
+
 ## Objectives/Questions
 
 - We have a prediction model which has an AUC of about 0.8 and we want
@@ -55,41 +99,6 @@ also use a shiny app by Nicole White and Robin Blythe: `ShinyPrior`
 
 - We think we can improve the performance of the model up to 0.95 with
   some extra effort by the models - would this change our conclusion?
-
-## pre-`{predictNMB}` primer on the distributions we will be using.
-
-We will be using different distributions to sample different inputs for
-our simulation. A gamma distribution is often appropriate when sampling
-\$ and a beta distribution is often best when sampling QALYs due to the
-shape and limits being sensible (the cost of treatment is unlikely be to
-be negative and QALYs are bounded to be between 0 and 1, similar to a
-probability of an event). We can sample from these distributions using R
-code with the `rgamma()` and `rbeta()` functions - for example, here are
-the distributions above for the healthcare costs and the QALYs
-associated with a fall:
-
-``` r
-data.frame(QALYs_lost = rbeta(10000, shape1 = 2.95, shape2 = 32.25)) |>
-  ggplot(aes(x = QALYs_lost)) + 
-  geom_histogram() +
-  theme_bw()
-```
-
-![](predictNMB-demo_files/figure-commonmark/unnamed-chunk-4-1.png)
-
-``` r
-data.frame(fall_costs = rgamma(10000, shape = 22.05, rate = 0.0033)) |>
-  ggplot(aes(x = fall_costs)) + 
-  geom_histogram() +
-  theme_bw()
-```
-
-![](predictNMB-demo_files/figure-commonmark/unnamed-chunk-4-2.png)
-
-We will be using these sampling functions within our NMB sampling
-functions!
-
-![](https://media1.giphy.com/media/7pHTiZYbAoq40/giphy.gif)
 
 ## `{predictNMB}`
 
@@ -109,6 +118,8 @@ training_sampler <- get_nmb_sampler()
 cl <- makeCluster(detectCores() - 1)
 
 primary_sim <- do_nmb_sim()
+
+# primary_sim <- readRDS(file.path(here::here("demo-code", "saved-sims"), "primary_sim.rds"))
 ```
 
 ### Interpreting our results
@@ -124,6 +135,8 @@ ce_plot(primary_sim)
 ``` r
 acute_care_sim <- do_nmb_sim()
 
+# acute_care_sim <- readRDS(file.path(here::here("demo-code", "saved-sims"), "acute_care_sim.rds"))
+
 summary(acute_care_sim)
 autoplot(acute_care_sim)
 ce_plot(acute_care_sim)
@@ -133,6 +146,8 @@ ce_plot(acute_care_sim)
 
 ``` r
 auc_screen <- screen_simulation_inputs()
+
+# auc_screen <- readRDS(file.path(here::here("demo-code", "saved-sims"), "auc_screen.rds"))
 ```
 
 # References
