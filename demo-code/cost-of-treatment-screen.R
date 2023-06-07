@@ -141,6 +141,53 @@ training_sampler500 <- get_nmb_sampler(
   use_expected_values = TRUE
 )
 
+validation_sampler750 <- get_nmb_sampler(
+  outcome_cost = function()  rgamma(1, shape = 22.05, rate = 0.0033),
+  wtp = 28033,
+  qalys_lost = function() rbeta(1, shape1 = 2.95, shape2 = 32.25),
+  high_risk_group_treatment_effect = function() exp(rnorm(1, mean = -0.844, sd = 0.304)),
+  high_risk_group_treatment_cost = 750,
+  low_risk_group_treatment_effect = 0,
+  low_risk_group_treatment_cost = 0,
+  use_expected_values = FALSE
+)
+
+
+training_sampler750 <- get_nmb_sampler(
+  outcome_cost = function()  rgamma(1, shape = 22.05, rate = 0.0033),
+  wtp = 28033,
+  qalys_lost = function() rbeta(1, shape1 = 2.95, shape2 = 32.25),
+  high_risk_group_treatment_effect = function() exp(rnorm(1, mean = -0.844, sd = 0.304)),
+  high_risk_group_treatment_cost = 750,
+  low_risk_group_treatment_effect = 0,
+  low_risk_group_treatment_cost = 0,
+  use_expected_values = TRUE
+)
+
+
+validation_sampler1000 <- get_nmb_sampler(
+  outcome_cost = function()  rgamma(1, shape = 22.05, rate = 0.0033),
+  wtp = 28033,
+  qalys_lost = function() rbeta(1, shape1 = 2.95, shape2 = 32.25),
+  high_risk_group_treatment_effect = function() exp(rnorm(1, mean = -0.844, sd = 0.304)),
+  high_risk_group_treatment_cost = 1000,
+  low_risk_group_treatment_effect = 0,
+  low_risk_group_treatment_cost = 0,
+  use_expected_values = FALSE
+)
+
+
+training_sampler1000 <- get_nmb_sampler(
+  outcome_cost = function()  rgamma(1, shape = 22.05, rate = 0.0033),
+  wtp = 28033,
+  qalys_lost = function() rbeta(1, shape1 = 2.95, shape2 = 32.25),
+  high_risk_group_treatment_effect = function() exp(rnorm(1, mean = -0.844, sd = 0.304)),
+  high_risk_group_treatment_cost = 1000,
+  low_risk_group_treatment_effect = 0,
+  low_risk_group_treatment_cost = 0,
+  use_expected_values = TRUE
+)
+
 cl <- makeCluster(detectCores())
 cost_screen <- screen_simulation_inputs(
   n_sims = 1000,
@@ -154,7 +201,9 @@ cost_screen <- screen_simulation_inputs(
     "C-100"=training_sampler100,
     "D-150"=training_sampler150,
     "E-250"=training_sampler250,
-    "F-500"=training_sampler500
+    "F-500"=training_sampler500,
+    "G-750"=training_sampler750,
+    "H-1000"=training_sampler1000
   ),
   fx_nmb_evaluation = list(
     "A-50"=validation_sampler50,
@@ -162,7 +211,9 @@ cost_screen <- screen_simulation_inputs(
     "C-100"=validation_sampler100,
     "D-150"=validation_sampler150,
     "E-250"=validation_sampler250,
-    "F-500"=validation_sampler500
+    "F-500"=validation_sampler500,
+    "G-750"=validation_sampler750,
+    "H-1000"=validation_sampler1000
   ),
   pair_nmb_train_and_evaluation_functions = TRUE,
   show_progress = TRUE,
