@@ -163,10 +163,10 @@ summary(primary_sim)
     # A tibble: 4 × 3
       method           median `95% CI`         
       <chr>             <dbl> <chr>            
-    1 all               -582. -937.2 to -289.3 
-    2 none              -911. -1336.4 to -567.4
-    3 value optimising  -583. -965 to -291.4   
-    4 youden            -654. -1019.4 to -353.6
+    1 all               -580. -961.2 to -283.5 
+    2 none              -907. -1363.3 to -574.4
+    3 value optimising  -593. -965.3 to -297.8 
+    4 youden            -649. -1044.2 to -354.2
 
 ``` r
 autoplot(primary_sim) + theme_sim()
@@ -231,10 +231,10 @@ summary(acute_care_sim)
     # A tibble: 4 × 3
       method           median `95% CI`        
       <chr>             <dbl> <chr>           
-    1 all               -228. -334.2 to -135.4
-    2 none              -271. -407.8 to -169.9
-    3 value optimising  -209. -317.4 to -122.2
-    4 youden            -213. -325.5 to -123.5
+    1 all               -228. -339.8 to -140.1
+    2 none              -271. -418.4 to -168.7
+    3 value optimising  -209. -320.4 to -121.2
+    4 youden            -212. -323 to -127.8  
 
 ``` r
 summary(acute_care_sim, what = "cutpoints")
@@ -246,7 +246,7 @@ summary(acute_care_sim, what = "cutpoints")
     1 all                0    0 to 0  
     2 none               1    1 to 1  
     3 value optimising   0.02 0 to 0.1
-    4 youden             0.03 0 to 0.1
+    4 youden             0.04 0 to 0.1
 
 ``` r
 autoplot(acute_care_sim) + theme_sim()
@@ -303,15 +303,17 @@ cost_screen <- readRDS(gzcon(url("https://github.com/RWParsons/rmed2023-predictN
 summary(cost_screen)
 ```
 
-    # A tibble: 6 × 10
+    # A tibble: 8 × 10
       fx_nmb_train…¹ fx_nm…² all_m…³ all_9…⁴ none_…⁵ none_…⁶ youde…⁷ youde…⁸ value…⁹
       <chr>          <chr>     <dbl> <chr>     <dbl> <chr>     <dbl> <chr>     <dbl>
-    1 A-50           A-50      -546. -869.8…   -895. -1322.…   -633. -992 t…   -553.
-    2 B-77.30        B-77.30   -568. -949.6…   -898. -1368.…   -636. -1041.…   -571.
-    3 C-100          C-100     -594. -937.1…   -893. -1341.…   -653. -1014.…   -596.
-    4 D-150          D-150     -644. -1016.…   -893. -1352.…   -669. -1054.…   -631.
-    5 E-250          E-250     -743. -1075.…   -893. -1353.…   -690. -1062.…   -682.
-    6 F-500          F-500     -991. -1334.…   -880. -1320.…   -764. -1106.…   -763.
+    1 A-50           A-50      -543. -870.8…   -892. -1329.…   -629. -988.2…   -553.
+    2 B-77.30        B-77.30   -566. -928.5…   -904. -1357.…   -640. -1007.…   -568.
+    3 C-100          C-100     -597. -928 t…   -891. -1330.…   -643. -1013.…   -596.
+    4 D-150          D-150     -645. -1021.…   -895. -1343.…   -663. -1057.…   -629.
+    5 E-250          E-250     -741. -1086.…   -886. -1340.…   -692. -1046.…   -681.
+    6 F-500          F-500     -992. -1339.…   -885  -1322.…   -767. -1123 …   -767 
+    7 G-750          G-750    -1247. -1631.…   -891. -1331.…   -852. -1256.…   -824.
+    8 H-1000         H-1000   -1488. -1817.…   -895. -1301.…   -918. -1275.…   -852.
     # … with 1 more variable: `value optimising_95% CI` <chr>, and abbreviated
     #   variable names ¹​fx_nmb_training, ²​fx_nmb_evaluation, ³​all_median,
     #   ⁴​`all_95% CI`, ⁵​none_median, ⁶​`none_95% CI`, ⁷​youden_median,
