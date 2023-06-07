@@ -10,6 +10,11 @@ remotes::install_github("ropensci/predictNMB", dependencies = "Suggests")
 
 ``` r
 library(predictNMB)
+```
+
+    Warning: package 'predictNMB' was built under R version 4.2.3
+
+``` r
 library(ggplot2)
 library(parallel)
 ```
@@ -119,7 +124,7 @@ cl <- makeCluster(detectCores() - 1)
 
 primary_sim <- do_nmb_sim()
 
-# primary_sim <- readRDS(file.path(here::here("demo-code", "saved-sims"), "primary_sim.rds"))
+# primary_sim <- readRDS(gzcon(url("https://github.com/RWParsons/rmed2023-predictNMB/raw/main/demo-code/saved-sims/primary_sim.rds")))
 ```
 
 ### Interpreting our results
@@ -135,7 +140,7 @@ ce_plot(primary_sim)
 ``` r
 acute_care_sim <- do_nmb_sim()
 
-# acute_care_sim <- readRDS(file.path(here::here("demo-code", "saved-sims"), "acute_care_sim.rds"))
+# acute_care_sim <- readRDS(gzcon(url("https://github.com/RWParsons/rmed2023-predictNMB/raw/main/demo-code/saved-sims/acute_care_sim.rds")))
 
 summary(acute_care_sim)
 autoplot(acute_care_sim)
@@ -147,8 +152,10 @@ ce_plot(acute_care_sim)
 ``` r
 auc_screen <- screen_simulation_inputs()
 
-# auc_screen <- readRDS(file.path(here::here("demo-code", "saved-sims"), "auc_screen.rds"))
+# auc_screen <- readRDS(gzcon(url("https://github.com/RWParsons/rmed2023-predictNMB/raw/main/demo-code/saved-sims/auc_screen.rds")))
 ```
+
+## Bonus - What if our intervention were cheaper or more expensive?
 
 # References
 

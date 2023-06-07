@@ -183,6 +183,17 @@ auc_screen <- screen_simulation_inputs(
 autoplot(auc_screen)
 ```
 
+## Bonus - What if our intervention were cheaper or more expensive?
+
+```{r}
+# see 'demo-code/cost-of-treatment-screen.R' for code!
+cost_screen <- readRDS(gzcon(url("https://github.com/RWParsons/rmed2023-predictNMB/raw/main/demo-code/saved-sims/cost_screen.rds")))
+
+summary(cost_screen)
+autoplot(cost_screen) +
+  scale_x_discrete(labels = function(x) stringr::str_replace(x, "[A-Z]\\-", "$"))
+```
+
 ```{r, include=FALSE}
 # save objects for audience to load without waiting for simulations to run
 saveRDS(primary_sim, file.path(here::here("demo-code", "saved-sims"), "primary_sim.rds"))

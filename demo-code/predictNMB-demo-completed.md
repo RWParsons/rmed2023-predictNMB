@@ -5,14 +5,50 @@ If you haven’t already, please install the package.
 
 ``` r
 install.packages("predictNMB", dependencies = "Suggests")
-remotes::install_github("RWParsons/predictNMB", dependencies = "Suggests")
+remotes::install_github("ropensci/predictNMB", dependencies = "Suggests")
 ```
 
 ``` r
 library(predictNMB)
+```
+
+    Warning: package 'predictNMB' was built under R version 4.2.3
+
+``` r
 library(ggplot2)
 library(parallel)
 ```
+
+## pre-`{predictNMB}` primer on the distributions we will be using.
+
+We will be using different distributions to sample different inputs for
+our simulation. A gamma distribution is often appropriate when sampling
+\$ and a beta distribution is often best when sampling QALYs due to the
+shape and limits being sensible (the cost of treatment is unlikely be to
+be negative and QALYs are bounded to be between 0 and 1, similar to a
+probability of an event). We can sample from these distributions using R
+code with the `rgamma()` and `rbeta()` functions:
+
+``` r
+data.frame(QALYs_lost = rbeta(10000, shape1 = 2.95, shape2 = 32.25)) |>
+  ggplot(aes(x = QALYs_lost)) + 
+  geom_histogram() +
+  theme_bw() +
+  labs(title = "QALYs lost associated with inpatient fall")
+```
+
+![](predictNMB-demo-completed_files/figure-commonmark/unnamed-chunk-4-1.png)
+
+``` r
+data.frame(fall_costs = rgamma(10000, shape = 22.05, rate = 0.0033)) |>
+  ggplot(aes(x = fall_costs)) + 
+  geom_histogram() +
+  theme_bw() +
+  labs(title = "Healthcare costs associated with inpatient fall") +
+  scale_x_continuous(labels = scales::dollar_format())
+```
+
+![](predictNMB-demo-completed_files/figure-commonmark/unnamed-chunk-4-2.png)
 
 ## Example problem and inputs required - inpatient falls
 
@@ -41,7 +77,18 @@ described in (Parsons et al. 2023). We used `{fitdistrplus}` but you can
 also use a shiny app by Nicole White and Robin Blythe: `ShinyPrior`
 (White and Blythe 2023).
 
-# TODO add table containing everything above that’s used within get_nmb_sampler() with R code for distributions and reference
+| Input                     | Distribution                                         | R code                                         |
+|---------------------------|------------------------------------------------------|------------------------------------------------|
+| QALYs lost                | $$\mathrm{B}(\alpha = 2.95, \beta = 32.25)$$         | `rbeta(n = 1, shape1 = 2.95, shape2 = 32.25`   |
+| Healthcare costs          | $$\Gamma (\alpha = 22.05, \beta = 0.0033) $$         | `rgamma(n = 1, shape = 22.05, rate = 0.0033)`  |
+| Treatment effect (hazard) | $$\exp(\mathcal{N}(\mu = -0.844, \sigma = 0.304)) $$ | `exp(rnorm(n = 1, mean = -0.844, sd = 0.304))` |
+| Treatment cost            | \$77.30                                              | \-                                             |
+| WTP                       | \$28033                                              | \-                                             |
+
+We will be using these sampling functions within our NMB sampling
+functions!
+
+![](https://media1.giphy.com/media/7pHTiZYbAoq40/giphy.gif)
 
 ## Objectives/Questions
 
@@ -57,41 +104,6 @@ also use a shiny app by Nicole White and Robin Blythe: `ShinyPrior`
 
 - We think we can improve the performance of the model up to 0.95 with
   some extra effort by the models - would this change our conclusion?
-
-## pre-`{predictNMB}` primer on the distributions we will be using.
-
-We will be using different distributions to sample different inputs for
-our simulation. A gamma distribution is often appropriate when sampling
-\$ and a beta distribution is often best when sampling QALYs due to the
-shape and limits being sensible (the cost of treatment is unlikely be to
-be negative and QALYs are bounded to be between 0 and 1, similar to a
-probability of an event). We can sample from these distributions using R
-code with the `rgamma()` and `rbeta()` functions - for example, here are
-the distributions above for the healthcare costs and the QALYs
-associated with a fall:
-
-``` r
-data.frame(QALYs_lost = rbeta(10000, shape1 = 2.95, shape2 = 32.25)) |>
-  ggplot(aes(x = QALYs_lost)) + 
-  geom_histogram() +
-  theme_bw()
-```
-
-![](predictNMB-demo-completed_files/figure-commonmark/unnamed-chunk-4-1.png)
-
-``` r
-data.frame(fall_costs = rgamma(10000, shape = 22.05, rate = 0.0033)) |>
-  ggplot(aes(x = fall_costs)) + 
-  geom_histogram() +
-  theme_bw()
-```
-
-![](predictNMB-demo-completed_files/figure-commonmark/unnamed-chunk-4-2.png)
-
-We will be using these sampling functions within our NMB sampling
-functions!
-
-![](https://media1.giphy.com/media/7pHTiZYbAoq40/giphy.gif)
 
 ## `{predictNMB}`
 
@@ -151,10 +163,10 @@ summary(primary_sim)
     # A tibble: 4 × 3
       method           median `95% CI`         
       <chr>             <dbl> <chr>            
-    1 all               -577. -923.9 to -283.2 
-    2 none              -910. -1356.2 to -564.4
-    3 value optimising  -587. -954.8 to -298.6 
-    4 youden            -653. -1008.9 to -366.1
+    1 all               -582. -937.2 to -289.3 
+    2 none              -911. -1336.4 to -567.4
+    3 value optimising  -583. -965 to -291.4   
+    4 youden            -654. -1019.4 to -353.6
 
 ``` r
 autoplot(primary_sim) + theme_sim()
@@ -219,10 +231,10 @@ summary(acute_care_sim)
     # A tibble: 4 × 3
       method           median `95% CI`        
       <chr>             <dbl> <chr>           
-    1 all               -227. -334.2 to -138.5
-    2 none              -268. -403.5 to -167.8
-    3 value optimising  -208. -327.4 to -119.7
-    4 youden            -210. -335.6 to -120.3
+    1 all               -228. -334.2 to -135.4
+    2 none              -271. -407.8 to -169.9
+    3 value optimising  -209. -317.4 to -122.2
+    4 youden            -213. -325.5 to -123.5
 
 ``` r
 summary(acute_care_sim, what = "cutpoints")
@@ -281,6 +293,45 @@ autoplot(auc_screen)
     Screening over sim_auc by default
 
 ![](predictNMB-demo-completed_files/figure-commonmark/unnamed-chunk-9-1.png)
+
+## Bonus - What if our intervention were cheaper or more expensive?
+
+``` r
+# see 'demo-code/cost-of-treatment-screen.R' for code!
+cost_screen <- readRDS(gzcon(url("https://github.com/RWParsons/rmed2023-predictNMB/raw/main/demo-code/saved-sims/cost_screen.rds")))
+
+summary(cost_screen)
+```
+
+    # A tibble: 6 × 10
+      fx_nmb_train…¹ fx_nm…² all_m…³ all_9…⁴ none_…⁵ none_…⁶ youde…⁷ youde…⁸ value…⁹
+      <chr>          <chr>     <dbl> <chr>     <dbl> <chr>     <dbl> <chr>     <dbl>
+    1 A-50           A-50      -546. -869.8…   -895. -1322.…   -633. -992 t…   -553.
+    2 B-77.30        B-77.30   -568. -949.6…   -898. -1368.…   -636. -1041.…   -571.
+    3 C-100          C-100     -594. -937.1…   -893. -1341.…   -653. -1014.…   -596.
+    4 D-150          D-150     -644. -1016.…   -893. -1352.…   -669. -1054.…   -631.
+    5 E-250          E-250     -743. -1075.…   -893. -1353.…   -690. -1062.…   -682.
+    6 F-500          F-500     -991. -1334.…   -880. -1320.…   -764. -1106.…   -763.
+    # … with 1 more variable: `value optimising_95% CI` <chr>, and abbreviated
+    #   variable names ¹​fx_nmb_training, ²​fx_nmb_evaluation, ³​all_median,
+    #   ⁴​`all_95% CI`, ⁵​none_median, ⁶​`none_95% CI`, ⁷​youden_median,
+    #   ⁸​`youden_95% CI`, ⁹​`value optimising_median`
+
+``` r
+autoplot(cost_screen) +
+  scale_x_discrete(labels = function(x) stringr::str_replace(x, "[A-Z]\\-", "$"))
+```
+
+    No value for 'x_axis_var' given.
+
+    Screening over fx_nmb_training by default. Specify the variable in the 'x_axis_var' argument if you want to plot changes over:
+    fx_nmb_evaluation
+
+
+
+    Varying simulation inputs, other than fx_nmb_training, are being held constant:
+
+![](predictNMB-demo-completed_files/figure-commonmark/unnamed-chunk-10-1.png)
 
 # References
 
